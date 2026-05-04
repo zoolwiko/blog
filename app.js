@@ -91,15 +91,56 @@ function goPage(id) {
   const navEl = document.getElementById('nav-' + id);
   if (navEl) navEl.classList.add('active');
 
-  // Render TOC for lesson pages
+  // Render TOC for lesson pages and wire up the scroll-spy
   const tocLinks = document.getElementById('toc-links');
   if (tocLinks) {
-    tocLinks.innerHTML = (tocs[id] || []).map(t =>
-      `<a class="toc-a" onclick="smoothTo('${t.id}')">${t.label}</a>`
+    const entries = tocs[id] || [];
+    tocLinks.innerHTML = entries.map(t =>
+      `<a class="toc-a" data-target="${t.id}" onclick="smoothTo('${t.id}')">${t.label}</a>`
     ).join('');
+    setupTocObserver(entries.map(t => t.id));
   }
 
+  // Close mobile drawer if open
+  document.body.classList.remove('sidenav-open');
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Active-section TOC (scroll-spy) ──────────────────────────────────────────
+
+let tocObserver = null;
+
+function setupTocObserver(ids) {
+  if (tocObserver) { tocObserver.disconnect(); tocObserver = null; }
+  if (!ids || !ids.length) return;
+
+  tocObserver = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (!visible.length) return;
+    const activeId = visible[0].target.id;
+    document.querySelectorAll('.toc-a').forEach(a => a.classList.remove('active'));
+    const link = document.querySelector('.toc-a[data-target="' + activeId + '"]');
+    if (link) link.classList.add('active');
+  }, {
+    // Activate a heading once it crosses ~80px below the viewport top;
+    // deactivate when it's scrolled more than 60% up the viewport.
+    rootMargin: '-80px 0px -60% 0px',
+    threshold: 0,
+  });
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) tocObserver.observe(el);
+  });
+}
+
+// ── Mobile sidenav drawer ─────────────────────────────────────────────────────
+
+function toggleSidenav() {
+  document.body.classList.toggle('sidenav-open');
 }
 
 // ── Smooth scroll to heading ──────────────────────────────────────────────────
@@ -134,13 +175,22 @@ function toggleNav(id) {
 }
 
 // ── Theme toggle ──────────────────────────────────────────────────────────────
+// The inline script in <head> sets data-theme from localStorage / OS preference
+// before first paint. This pair keeps the button UI in sync and persists toggles.
+
+function syncThemeUI() {
+  // Icon swap is CSS-driven via [data-theme] selectors; only the label needs updating here.
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const label = document.getElementById('theme-label');
+  if (label) label.textContent = isDark ? 'Light mode' : 'Dark mode';
+}
 
 function toggleTheme() {
-  const html   = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  document.getElementById('theme-icon').textContent  = isDark ? '☽' : '☀';
-  document.getElementById('theme-label').textContent = isDark ? 'Dark mode' : 'Light mode';
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
+  syncThemeUI();
 }
 
 // ── Skill expand (Socratic tutor prompt) ─────────────────────────────────────
@@ -169,4 +219,5 @@ function copySkillPrompt(btn) {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 
+syncThemeUI();
 goPage('home');
