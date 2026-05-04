@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Notes — Marcin's Learning Journey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══════════════════════════════════════
+       SIDENAV
+  ══════════════════════════════════════ -->
+  <nav class="sidenav">
+    <div class="sidenav-top">
+      <div class="site-eyebrow">Field Notes</div>
+      <div class="site-name">Marcin's <span>Journey</span></div>
+      <div class="site-sub">Learning with AI across different topics</div>
+    </div>
+
+    <div class="nav-tree">
+      <div class="nav-link" onclick="goPage('home')" id="nav-home">
+        <span class="nav-icon">⌂</span> Home
+      </div>
+
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">Learning</div>
+
+      <!-- ── Learning LLMs ── -->
+      <div class="nav-collapse-btn" onclick="toggleNav('llms')">
+        <span class="nav-icon" style="font-size:12px;">◈</span>
+        <span style="font-size:13px;font-weight:500;">Learning LLMs</span>
+        <span class="chevron open" id="chv-llms">›</span>
+      </div>
+      <div id="nav-llms">
+        <div class="nav-sub">
+          <div class="nav-link" onclick="goPage('l0')" id="nav-l0"><span class="sdot"></span> 01 — Agent Fundamentals</div>
+          <div class="nav-link" onclick="goPage('l1')" id="nav-l1"><span class="sdot"></span> 02 — Context Window</div>
+          <div class="nav-link" onclick="goPage('l2')" id="nav-l2"><span class="sdot"></span> 03 — RAG &amp; Memory</div>
+        </div>
+      </div>
+
+      <!--
+        ── ADD NEW TOPICS HERE ──
+        Copy the block above and update:
+          - onclick="toggleNav('your-topic-id')"
+          - id="chv-your-topic-id"
+          - id="nav-your-topic-id"
+          - session nav-links with goPage('lN') and id="nav-lN"
+      -->
+
+      <div class="nav-collapse-btn" style="opacity:0.35;cursor:default;margin-top:4px;">
+        <span class="nav-icon" style="font-size:12px;">◈</span>
+        <span style="font-size:13px;font-weight:500;">Coming soon…</span>
+      </div>
+
+    </div>
+
+    <div class="sidenav-bottom">
+      <button class="theme-btn" onclick="toggleTheme()">
+        <span id="theme-icon">☀</span>
+        <span id="theme-label">Light mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       MAIN AREA
+  ══════════════════════════════════════ -->
+  <div class="main-area">
+
+    <!-- ────────────────────────────────────
+         HOME PAGE
+    ──────────────────────────────────── -->
+    <div class="wrap full" id="wrap-home" data-wrap>
+      <div class="page active" id="page-home">
+
+        <div class="home-hero">
+          <div class="eyebrow-row">
+            <span class="badge-amber">Field Notes</span>
+            <span class="meta-dim">Marcin's learning journal</span>
+          </div>
+          <h1 class="big-title">Learning<br><em>with AI</em></h1>
+          <p class="big-lede">A personal record of learning different topics using AI as a Socratic tutor — where understanding is earned through dialogue, not handed over in a summary.</p>
+          <div class="action-row">
+            <button class="btn-primary" onclick="goPage('l0')">Start with LLMs →</button>
+          </div>
+        </div>
+
+        <!-- Philosophy -->
+        <div style="margin-bottom:52px;">
+          <div class="section-dim">The approach</div>
+          <div class="phil-grid">
+            <div class="phil-card al">
+              <h4>Why AI as a tutor?</h4>
+              <p>A good tutor doesn't hand you the answer — it asks you the right question at the right moment. AI can do this at any hour, on any topic, calibrated to exactly where your understanding currently is.</p>
+            </div>
+            <div class="phil-card al2">
+              <h4>Socratic dialogue</h4>
+              <p>Each session is a conversation, not a lecture. The AI identifies a concept, asks a question rather than explaining it, and guides reasoning toward the insight. You have to think to make progress.</p>
+            </div>
+            <div class="phil-card al3">
+              <h4>Active recall over passive reading</h4>
+              <p>Being asked a question before hearing the answer forces retrieval — one of the most effective memory techniques known. You can't skim a Socratic conversation.</p>
+            </div>
+            <div class="phil-card al4">
+              <h4>Documented understanding</h4>
+              <p>The notes here weren't copied from a textbook. They represent understanding that was reasoned toward — the cheat sheets are the output of that dialogue, not the input.</p>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-label">How the tutor behaves — key rules (from Anthropic)</div>
+            <ul>
+              <li><span class="hl">Act as a tutor</span> when the student is asking for help understanding concepts or working through problems — use leading questions, not direct answers.</li>
+              <li><span class="hl">Provide direct assistance</span> when study materials, summaries, or outlines are explicitly requested.</li>
+              <li><span class="hl">Gentle nudges</span> when headed in the wrong direction — never just say "wrong". Redirect through the next question.</li>
+              <li><span class="hl">Do not solve</span> problems directly. The student's own reasoning is the point.</li>
+              <li><span class="hl">Balance</span> between pure Socratic dialogue and direct instruction — some concepts need explaining before they can be questioned.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Topics -->
+        <div>
+          <div class="section-dim">Learning topics</div>
+
+          <!-- Learning LLMs -->
+          <div class="topic-group">
+            <div class="topic-group-header" onclick="goPage('l0')">
+              <div class="tg-left">
+                <div class="tg-icon">◈</div>
+                <div>
+                  <div class="tg-title">Learning LLMs</div>
+                  <div class="tg-desc">How large language models work, how agents are built on top of them, and how memory and retrieval are handled.</div>
+                </div>
+              </div>
+              <span class="tg-count">3 sessions</span>
+            </div>
+            <div class="topic-sessions">
+              <div class="session-row" onclick="goPage('l0')">
+                <span class="sr-num">Session 01</span>
+                <span class="sr-title">Agent Fundamentals</span>
+                <span class="sr-time">5 min</span>
+                <div class="sr-tags"><span class="stag">agents</span><span class="stag">loop</span></div>
+              </div>
+              <div class="session-row" onclick="goPage('l1')">
+                <span class="sr-num">Session 02</span>
+                <span class="sr-title">Context Window</span>
+                <span class="sr-time">7 min</span>
+                <div class="sr-tags"><span class="stag">context</span><span class="stag">memory</span></div>
+              </div>
+              <div class="session-row" onclick="goPage('l2')">
+                <span class="sr-num">Session 03</span>
+                <span class="sr-title">RAG &amp; Agent Memory</span>
+                <span class="sr-time">8 min</span>
+                <div class="sr-tags"><span class="stag">RAG</span><span class="stag">embeddings</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!--
+            ── ADD NEW TOPIC GROUPS HERE ──
+            Copy the block above and update:
+              - tg-title, tg-desc, tg-count
+              - session rows with correct goPage() calls
+          -->
+
+          <div class="topic-group" style="opacity:0.45;">
+            <div class="topic-group-header" style="cursor:default;">
+              <div class="tg-left">
+                <div class="tg-icon">◈</div>
+                <div>
+                  <div class="tg-title">Next topic</div>
+                  <div class="tg-desc">More learning sessions will appear here as new topics are explored.</div>
+                </div>
+              </div>
+              <span class="tg-count">coming soon</span>
+            </div>
+            <div class="coming-soon">Sessions will be added as they are completed.</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /wrap-home -->
+
+    <!-- ────────────────────────────────────
+         LESSON PAGES
+    ──────────────────────────────────── -->
+    <div class="wrap" id="wrap-lessons" data-wrap style="display:none;">
+      <div>
+
+        <!-- ══ SESSION 01 — Agent Fundamentals ══ -->
+        <article class="page" id="page-l0">
+          <div class="article-hero">
+            <div class="art-kicker">
+              <span class="session-badge">Session 01 · Learning LLMs</span>
+              <span class="read-time">5 min read</span>
+            </div>
+            <h1 class="art-h1">Agent<br><em>Fundamentals</em></h1>
+            <p class="art-lede">What agents actually are, how the loop works, and why the LLM is just a passenger.</p>
+          </div>
+
+          <div class="body">
+
+            <h2 id="l0-s1">Chatbot vs Agent</h2>
+            <p>The clearest way to understand the distinction is to ask a single question: <strong>who drives the loop?</strong> In a chatbot, the human is always in the seat — every response requires a new human message to continue. In an agent, the human pulls a trigger and then steps back.</p>
+
+            <div class="flow-block">
+              <div class="flow-row"><span class="flow-lbl">Chatbot</span><span class="chip n">Human</span><span class="farrow">→</span><span class="chip a">LLM</span><span class="farrow">→</span><span class="chip n">Human</span><span class="farrow">→</span><span class="chip a">LLM</span><span class="farrow">→</span><span class="chip n">Human …</span></div>
+              <div class="flow-row"><span class="flow-lbl">Agent</span><span class="chip n">Human triggers</span><span class="farrow">→</span><span class="chip a">LLM</span><span class="farrow">→</span><span class="chip g">Tool</span><span class="farrow">→</span><span class="chip a">LLM</span><span class="farrow">→</span><span class="chip g">Tool</span><span class="farrow">→</span><span class="chip n">Result</span></div>
+              <div class="flow-note">A chatbot routes messages. An agent runs autonomously between trigger and result.</div>
+            </div>
+
+            <h2 id="l0-s2">The Agent Loop</h2>
+            <p>The process is the agent. The LLM is a stateless reasoning engine the process calls. Each call is a pulse — the LLM responds, the agent acts on that response, and the loop continues until the task is done.</p>
+            <div class="pull">The LLM has no idea it's in a loop. It only sees the current context window and responds.</div>
+
+            <div class="steps">
+              <div class="step"><span class="step-n">01</span><div><div class="step-title">Human triggers</div><div class="step-desc">A user message, scheduled event, or external signal starts the loop.</div></div></div>
+              <div class="step"><span class="step-n">02</span><div><div class="step-title">Build context window</div><div class="step-desc">Agent assembles system prompt, history, tool results, and loaded memory into a full payload.</div></div></div>
+              <div class="step"><span class="step-n">03</span><div><div class="step-title">Call LLM</div><div class="step-desc">Agent sends the full context as an HTTP POST. The LLM sees only this snapshot — nothing else.</div></div></div>
+              <div class="step"><span class="step-n">04a</span><div><div class="step-title">LLM outputs tool instruction → Agent executes</div><div class="step-desc">LLM writes a tool-use instruction as text. Agent reads it, runs the tool, appends result to context, loops back to step 02.</div></div></div>
+              <div class="step"><span class="step-n">04b</span><div><div class="step-title">LLM signals done → Return to human</div><div class="step-desc">Loop ends. Final response returned. The LLM had no idea it was in a loop.</div></div></div>
+            </div>
+
+            <p>An important precision: the LLM doesn't <em>call</em> tools. It outputs text that looks like a tool-use instruction. The <strong>agent process</strong> reads that output and decides to execute it.</p>
+
+            <h2 id="l0-s3">Context Window = Agent's Entire Reality</h2>
+            <p>Everything the agent knows at any moment lives in the context window. There is no other memory. Nothing persists between calls except what the agent process explicitly reconstructs and includes.</p>
+
+            <table class="styled-table">
+              <thead><tr><th>What it feels like</th><th>What it actually is</th></tr></thead>
+              <tbody>
+                <tr><td>Memory (CLAUDE.md)</td><td>Text loaded into context</td></tr>
+                <tr><td>Tool results</td><td>Observations appended to context</td></tr>
+                <tr><td>Instructions</td><td>Text at the top of context</td></tr>
+                <tr><td>Conversation history</td><td>Prior turns in context</td></tr>
+              </tbody>
+            </table>
+
+            <h2 id="l0-s4">The Agent Spectrum</h2>
+            <p>Agents aren't binary — it's a spectrum defined by <strong>autonomy depth</strong>: how many reasoning-action cycles run before a human sees anything.</p>
+
+            <div class="spectrum">
+              <div class="spec-cells">
+                <div class="spec-cell"><h5>Chatbot</h5><div class="spec-ex">Claude.ai plain chat</div><div class="spec-inv">Human every turn</div></div>
+                <div class="spec-cell"><h5>Tool-assisted</h5><div class="spec-ex">Claude.ai with tools</div><div class="spec-inv">Every turn, sees tool calls</div></div>
+                <div class="spec-cell"><h5>Supervised</h5><div class="spec-ex">Claude Code (watched)</div><div class="spec-inv">Triggered + monitoring</div></div>
+                <div class="spec-cell"><h5>Autonomous</h5><div class="spec-ex">Claude Code in CI</div><div class="spec-inv">Triggered, result only</div></div>
+              </div>
+              <div class="spec-footer"><span>← less autonomy</span><span>autonomy depth →</span></div>
+            </div>
+
+            <div class="takeaways">
+              <h3>Key Takeaways</h3>
+              <ul>
+                <li><strong>The agent is the process</strong> — not the LLM. The LLM is a stateless reasoning engine the process calls.</li>
+                <li><strong>LLMs don't call tools</strong> — they output tool-use instructions as text. The agent process executes them.</li>
+                <li><strong>LLM is stateless</strong> — it only knows what's in the current context window. No memory between calls.</li>
+                <li><strong>Agents reason in pulses</strong> — infer → act → observe → repeat.</li>
+                <li><strong>Autonomy depth</strong> is what separates an agent from a chatbot.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <button class="nav-btn ghost"><div class="btn-dir">← Prev</div><div>—</div></button>
+            <div class="progress"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l1')"><div class="btn-dir">Next →</div><div>Context Window</div></button>
+          </div>
+        </article>
+
+        <!-- ══ SESSION 02 — Context Window ══ -->
+        <article class="page" id="page-l1">
+          <div class="article-hero">
+            <div class="art-kicker">
+              <span class="session-badge">Session 02 · Learning LLMs</span>
+              <span class="read-time">7 min read</span>
+            </div>
+            <h1 class="art-h1">Context &amp;<br><em>Context Window</em></h1>
+            <p class="art-lede">What context is, how it's structured, and the strategies agents use to manage a finite resource.</p>
+          </div>
+
+          <div class="body">
+
+            <h2 id="l1-s1">What is Context?</h2>
+            <p>Every LLM call is a fresh HTTP request. There is no persistent connection. No session. The agent reconstructs the full context and sends it every single time. <strong>The LLM has no memory between calls — the agent process owns continuity.</strong></p>
+
+            <div class="flow-block">
+              <div class="flow-row"><span class="chip a">Agent Process</span><span class="farrow">→</span><span class="chip n">Reconstructs context</span><span class="farrow">→</span><span class="chip n">JSON payload</span><span class="farrow">→</span><span class="chip b">HTTP POST</span><span class="farrow">→</span><span class="chip g">LLM API</span><span class="farrow">→</span><span class="chip a">Response → Agent</span></div>
+              <div class="flow-note">No persistent connection. No session. The LLM is stateless.</div>
+            </div>
+
+            <h2 id="l1-s2">Structure of a Context Payload</h2>
+            <p>Sent as JSON over HTTP on every call. Images, PDFs, and documents are embedded as base64 blocks. Tool results are special message types — not plain conversation turns.</p>
+
+            <div class="code-block">
+<span class="cd">{</span><br>
+&nbsp;&nbsp;<span class="ck">"model"</span><span class="cd">:</span> <span class="cs">"claude-sonnet-..."</span><span class="cd">,</span><br>
+&nbsp;&nbsp;<span class="ck">"system"</span><span class="cd">:</span> <span class="cs">"You are... [developer instructions]"</span><span class="cd">,</span> <span class="cc">// never shown to user</span><br>
+&nbsp;&nbsp;<span class="ck">"messages"</span><span class="cd">: [</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cd">{ </span><span class="ck">"role"</span><span class="cd">:</span> <span class="cv">"user"</span><span class="cd">,      </span><span class="ck">"content"</span><span class="cd">:</span> <span class="cs">"Do X"</span> <span class="cd">},</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cd">{ </span><span class="ck">"role"</span><span class="cd">:</span> <span class="cv">"assistant"</span><span class="cd">, </span><span class="ck">"content"</span><span class="cd">:</span> <span class="cs">"...[reasoning + tool call]..."</span> <span class="cd">},</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cd">{ </span><span class="ck">"role"</span><span class="cd">:</span> <span class="cv">"user"</span><span class="cd">,      </span><span class="ck">"content"</span><span class="cd">:</span> <span class="cs">"[tool result: ...]"</span> <span class="cd">}</span> <span class="cc">// special type</span><br>
+&nbsp;&nbsp;<span class="cd">]</span><br>
+<span class="cd">}</span>
+            </div>
+
+            <h2 id="l1-s3">System Prompt</h2>
+            <p>The system prompt is written by the <strong>agent developer</strong>, loaded before any conversation begins, and never shown to the user. It contains the agent's identity, core instructions, tool definitions, safety rules, and behavioural constraints.</p>
+            <div class="callout red"><strong>Prompt Injection</strong> — a real attack vector where malicious content inside a tool result (e.g. a webpage the agent read) tries to override or hijack system prompt authority. Enforcement must be architectural, not just instructional.</div>
+
+            <h2 id="l1-s4">Context Management Strategies</h2>
+            <p>Agents can't grow context forever — there's a hard token limit. Developers choose how to manage it. Most real agents combine several strategies.</p>
+
+            <table class="styled-table">
+              <thead><tr><th>Strategy</th><th>How it works</th><th>Trade-off</th></tr></thead>
+              <tbody>
+                <tr><td>Always include</td><td>Static content always in context (CLAUDE.md, system prompt)</td><td><span class="bdg a">Takes up space</span> but always available</td></tr>
+                <tr><td>Sliding window</td><td>Keep last N turns, drop older ones</td><td><span class="bdg g">Simple</span> but loses history</td></tr>
+                <tr><td>Summarisation</td><td>Compress old history into a paragraph via LLM call</td><td><span class="bdg g">Space-efficient</span> but lossy</td></tr>
+                <tr><td>RAG</td><td>Fetch relevant chunks from external storage on demand</td><td><span class="bdg g">Scalable</span> but adds latency</td></tr>
+                <tr><td>Tool result pruning</td><td>Summarise large tool outputs before adding to context</td><td><span class="bdg g">Prevents bloat</span> from verbose tools</td></tr>
+              </tbody>
+            </table>
+
+            <div class="callout amber"><strong>Who decides?</strong> The developer — baked into the architecture, not decided at runtime. Claude Code uses token-budget-aware logic: when context approaches its limit, a summarisation pass compresses history to free space.</div>
+
+            <h2 id="l1-s5">Performance &amp; Design Choices</h2>
+            <div class="card-grid">
+              <div class="card at"><h4>Context size affects performance</h4><p>Larger context → more tokens → longer time to first token. Not always linear, but the relationship is real.</p></div>
+              <div class="card bt"><h4>Why not WebSockets?</h4><p>Statelessness is in the model, not the transport layer. Full context still gets rebuilt and sent each call regardless of connection type.</p></div>
+              <div class="card gt"><h4>Why JSON?</h4><p>Convention, universal tooling, human-readability — critical for debugging. The bottleneck is inference time, not serialization.</p></div>
+              <div class="card at"><h4>Developer controls everything</h4><p>Fixed token budget, turn count limits, importance scoring — all developer decisions baked into architecture. Not runtime decisions.</p></div>
+            </div>
+
+            <div class="takeaways">
+              <h3>Key Takeaways</h3>
+              <ul>
+                <li><strong>Every LLM call is stateless</strong> — the agent rebuilds full context from scratch each time.</li>
+                <li><strong>The system prompt</strong> is developer-authored and invisible to the user — it defines rules and identity.</li>
+                <li><strong>Tool results are not plain chat turns</strong> — they are special message types in the payload.</li>
+                <li><strong>Context has a hard token limit</strong> — management is not optional, it's a core design problem.</li>
+                <li><strong>Larger context = slower inference</strong> — context management matters beyond just hitting limits.</li>
+                <li><strong>Prompt injection is a real threat</strong> — requires architectural enforcement.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l0')"><div class="btn-dir">← Prev</div><div>Agent Fundamentals</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l2')"><div class="btn-dir">Next →</div><div>RAG &amp; Memory</div></button>
+          </div>
+        </article>
+
+        <!-- ══ SESSION 03 — RAG & Memory ══ -->
+        <article class="page" id="page-l2">
+          <div class="article-hero">
+            <div class="art-kicker">
+              <span class="session-badge">Session 03 · Learning LLMs</span>
+              <span class="read-time">8 min read</span>
+            </div>
+            <h1 class="art-h1">RAG &amp;<br><em>Agent Memory</em></h1>
+            <p class="art-lede">How agents persist and retrieve knowledge across sessions — and how retrieval actually works under the hood.</p>
+          </div>
+
+          <div class="body">
+
+            <h2 id="l2-s1">The Core Problem</h2>
+            <p>LLMs are stateless. Context windows are finite. You can't simply keep appending all past conversations — there is a hard token limit, and larger context means slower inference. Something external has to hold the memory.</p>
+            <div class="pull">The challenge isn't storing memories. It's retrieving the right ones at the right moment — without the LLM having to ask.</div>
+
+            <h2 id="l2-s2">The RAG Pipeline</h2>
+            <p>RAG — Retrieval-Augmented Generation — solves this by automatically fetching relevant context before the LLM is called. The user's message itself becomes the retrieval query.</p>
+
+            <div class="flow-block">
+              <div class="flow-row"><span class="chip n">user message</span><span class="farrow">→</span><span class="chip a">embedding model</span><span class="farrow">→</span><span class="chip a">query vector</span><span class="farrow">→</span><span class="chip g">similarity search</span><span class="farrow">→</span><span class="chip g">top-N results</span><span class="farrow">→</span><span class="chip n">injected into context</span><span class="farrow">→</span><span class="chip b">LLM call</span></div>
+              <div class="flow-note">⚠ Retrieval happens BEFORE the LLM is called. The agent process runs this automatically — no LLM instruction needed.</div>
+            </div>
+
+            <p>This answers the core question: the agent doesn't "know" to fetch because the user mentioned a topic. Retrieval is automatic — the user's words become a vector, relevant memories surface, and by the time the LLM sees the context window, they're already there.</p>
+
+            <h2 id="l2-s3">Vector Embeddings</h2>
+            <p>A model converts text into a list of numbers — coordinates in a very high-dimensional space. Crucially, <strong>similar meanings produce coordinates that are close together</strong>. Embeddings aren't assigned by rules — they emerge from training on billions of sentences.</p>
+            <div class="callout blue"><strong>Classic example:</strong> vector("king") − vector("man") + vector("woman") ≈ vector("queen") — vector arithmetic encodes real semantic relationships. The geometry has meaning.</div>
+
+            <div class="card-grid three">
+              <div class="card al"><h4>Cross-lingual</h4><p>Multilingual models map meanings across languages — "dog" (EN) and "hund" (DE) land close together. Idioms are less reliable since surface words mislead the model.</p></div>
+              <div class="card al2"><h4>Same model rule</h4><p>Store and query must use the same embedding model. Each model invents its own axes during training — coordinates are not comparable across different models.</p></div>
+              <div class="card al3"><h4>Why the same model?</h4><p>Unlike physical maps, embedding space has no fixed territory. Different models organise dimensions differently — no shared ground truth exists to derive a transformation from.</p></div>
+            </div>
+
+            <h2 id="l2-s4">Two Retrieval Approaches</h2>
+            <p>RAG is not the only way to retrieve external knowledge. There are two distinct patterns, and real systems often combine them.</p>
+
+            <table class="styled-table">
+              <thead><tr><th>Approach</th><th>Who triggers it</th><th>When</th><th>Best for</th></tr></thead>
+              <tbody>
+                <tr><td><span class="bdg a">RAG pipeline</span></td><td>Agent process, automatically</td><td>Before every LLM call</td><td>Always-needed knowledge: rules, guidelines, persona, constraints</td></tr>
+                <tr><td><span class="bdg b">Tool-call</span></td><td>LLM outputs instruction → agent executes</td><td>When LLM recognises a gap in context</td><td>On-demand knowledge: user history, optional references</td></tr>
+              </tbody>
+            </table>
+
+            <h2 id="l2-s5">Vector Database Design</h2>
+            <p>Unmanaged external storage just moves the bloat problem elsewhere. Good vector DB design is essential.</p>
+
+            <div class="card-grid">
+              <div class="card at"><h4>Similarity threshold</h4><p>Only return results above a relevance score. Prevents injecting loosely related noise into context.</p></div>
+              <div class="card at"><h4>Top-N limiting</h4><p>Return only the N most similar results. Developer-defined constant balancing relevance vs. context bloat.</p></div>
+              <div class="card bt"><h4>Memory curation</h4><p>Old or redundant entries should be pruned or summarised over time — unmanaged storage recreates the bloat problem externally.</p></div>
+              <div class="card bt"><h4>Approx. nearest neighbour</h4><p>Efficient algorithms find closest vectors at scale — without comparing every stored entry on every query.</p></div>
+            </div>
+
+            <div class="takeaways">
+              <h3>Key Takeaways</h3>
+              <ul>
+                <li><strong>RAG answers the core question:</strong> the agent doesn't "know" to fetch — the user's message is the query vector, retrieval is automatic.</li>
+                <li><strong>Relevance, not recency:</strong> what gets retrieved is semantically closest to the input, not necessarily most recent.</li>
+                <li><strong>Same embedding model always:</strong> must be consistent between store and query — different models invent different axes.</li>
+                <li><strong>Pipeline vs. tool-call:</strong> always-needed knowledge uses fixed pipeline; optional knowledge uses tool-triggered retrieval.</li>
+                <li><strong>External storage doesn't eliminate bloat:</strong> it moves the curation problem — vector DBs still need maintenance.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l1')"><div class="btn-dir">← Prev</div><div>Context Window</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+            <button class="nav-btn ghost"><div class="btn-dir">Next →</div><div>—</div></button>
+          </div>
+        </article>
+
+        <!--
+          ══ ADD NEW SESSIONS HERE ══
+          Copy an <article> block above, then:
+            1. Update id="page-lN"
+            2. Update session badge, title, lede
+            3. Update h2 ids (e.g. l3-s1, l3-s2 …)
+            4. Update bottom-nav prev/next buttons
+            5. Add TOC entry to tocs{} in app.js
+            6. Add 'lN' to lessons[] in app.js
+        -->
+
+      </div><!-- /lesson articles -->
+
+      <!-- Right TOC (auto-populated by app.js) -->
+      <aside class="right-toc" id="right-toc">
+        <div class="toc-hd">On this page</div>
+        <div id="toc-links"></div>
+      </aside>
+
+    </div><!-- /wrap-lessons -->
+
+  </div><!-- /main-area -->
+</div><!-- /shell -->
+
+<script src="app.js"></script>
+</body>
+</html>
