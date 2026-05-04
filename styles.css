@@ -340,3 +340,120 @@ body {
 .progress { display: flex; gap: 6px; align-items: center; }
 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); transition: background 0.2s; }
 .dot.on { background: var(--amber); }
+
+/* ════════════════════════════════════════
+   SKILL EXPAND (Socratic tutor full prompt)
+════════════════════════════════════════ */
+
+.skill-expand {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.skill-expand-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px;
+  background: var(--surface2);
+  border: none;
+  cursor: pointer;
+  font-family: 'Instrument Sans', sans-serif;
+  text-align: left;
+  transition: background 0.12s;
+}
+.skill-expand-toggle:hover { background: var(--border); }
+
+.skill-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.skill-toggle-icon {
+  font-size: 13px;
+  color: var(--amber);
+  flex-shrink: 0;
+}
+.skill-toggle-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.skill-toggle-src {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 2px 5px;
+  flex-shrink: 0;
+}
+.skill-toggle-chevron {
+  font-size: 14px;
+  color: var(--text3);
+  transition: transform 0.18s;
+  flex-shrink: 0;
+}
+.skill-toggle-chevron.open {
+  transform: rotate(90deg);
+}
+
+.skill-body {
+  border-top: 1px solid var(--border);
+}
+.skill-body[hidden] { display: none; }
+
+.skill-body-inner {
+  padding: 18px 20px 20px;
+  background: var(--code-bg);
+}
+
+.skill-copy-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.skill-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface2);
+  color: var(--text3);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.skill-copy-btn:hover {
+  border-color: var(--amber-bdr);
+  color: var(--amber);
+}
+.skill-copy-btn.copied {
+  border-color: var(--green-bdr);
+  color: var(--green);
+}
+
+.skill-pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--text2);
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}

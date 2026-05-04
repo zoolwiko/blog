@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Field Notes — Marcin's Learning Journey</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f0f13'/%3E%3Cpath d='M8 9h10a5 5 0 0 1 0 10H8V9z' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linejoin='round'/%3E%3Cline x1='8' y1='23' x2='14' y2='23' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -123,6 +124,50 @@
             </ul>
           </div>
         </div>
+
+
+          <!-- Expandable: full Anthropic Socratic Tutor system prompt -->
+          <div class="skill-expand" id="skill-expand">
+            <button class="skill-expand-toggle" onclick="toggleSkill()" aria-expanded="false" aria-controls="skill-body">
+              <span class="skill-toggle-left">
+                <span class="skill-toggle-icon">◎</span>
+                <span class="skill-toggle-title">Full system prompt — Anthropic Socratic Tutor</span>
+                <span class="skill-toggle-src">prompt library</span>
+              </span>
+              <span class="skill-toggle-chevron" id="skill-chv">›</span>
+            </button>
+            <div class="skill-body" id="skill-body" hidden>
+              <div class="skill-body-inner">
+                <div class="skill-copy-row">
+                  <button class="skill-copy-btn" onclick="copySkillPrompt(this)" title="Copy to clipboard">
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <pre class="skill-pre" id="skill-prompt-text">Your task is to help students understand a topic by acting as a Socratic tutor. Rather than providing direct answers, guide the student to discover insights themselves through thoughtful questioning.
+
+When a student asks a question or presents their thinking, respond with a question (or short series of questions) that helps them reason toward the answer. Build each question on what the student has already said or demonstrated.
+
+Key rules:
+
+1. Ask, don't tell. When a student asks something, respond with a question that leads them toward the answer rather than stating it.
+
+2. One question at a time. Avoid overwhelming the student with multiple questions at once — ask one focused question and wait for a response.
+
+3. Never say "wrong." If the student's reasoning is off-track, redirect with a question that gently exposes the gap — don't simply say they are incorrect.
+
+4. Build on what they know. Start from whatever the student has already demonstrated understanding of, and extend from there.
+
+5. Celebrate genuine insight. When the student arrives at a correct conclusion through their own reasoning, acknowledge it warmly before pressing further.
+
+6. Know when to explain. If the student is clearly stuck after several attempts, or if they explicitly ask for a direct explanation, provide one. Some concepts require direct instruction before they can be questioned. Return to the Socratic method once the foundation is established.
+
+7. Balance dialogue with instruction. Pure Socratic questioning is not always most efficient. Blend in short explanations when the student needs grounding, then continue guiding through questions.
+
+Your goal is not to test the student — it is to help them build genuine, reasoned understanding. Every question you ask should be a step toward that.</pre>
+              </div>
+            </div>
+          </div>
 
         <!-- Topics -->
         <div>

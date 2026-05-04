@@ -143,6 +143,30 @@ function toggleTheme() {
   document.getElementById('theme-label').textContent = isDark ? 'Dark mode' : 'Light mode';
 }
 
+// ── Skill expand (Socratic tutor prompt) ─────────────────────────────────────
+
+function toggleSkill() {
+  const body = document.getElementById('skill-body');
+  const chv  = document.getElementById('skill-chv');
+  const btn  = document.querySelector('.skill-expand-toggle');
+  const open = !body.hidden;
+  body.hidden = open;
+  chv.classList.toggle('open', !open);
+  btn.setAttribute('aria-expanded', String(!open));
+}
+
+function copySkillPrompt(btn) {
+  const text = document.getElementById('skill-prompt-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.querySelector('span').textContent = 'Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.querySelector('span').textContent = 'Copy';
+    }, 2000);
+  });
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 goPage('home');
