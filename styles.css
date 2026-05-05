@@ -140,6 +140,29 @@ body {
 .sdot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); flex-shrink: 0; transition: background 0.12s; }
 .nav-sub .nav-link.active .sdot { background: var(--amber); }
 
+/* Journey sub-collapse inside a topic collapse */
+.nav-journey-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 8px; margin: 4px 0 1px; cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text3); border-radius: 4px;
+  transition: color 0.12s, background 0.12s;
+  user-select: none;
+}
+.nav-journey-btn:hover { color: var(--text2); background: var(--surface2); }
+.nav-journey-btn .chevron { font-size: 9px; margin-left: auto; }
+
+/* Planned nav link — dimmer, hollow dot */
+.nav-link.planned { color: var(--text3); }
+.nav-link.planned:hover { color: var(--text2); }
+.nav-link.planned .sdot { background: transparent; border: 1px dashed var(--text3); width: 6px; height: 6px; }
+.nav-link.planned.active { color: var(--amber); }
+.nav-link.planned.active .sdot { background: var(--amber); border-color: var(--amber); }
+
+/* Nested collapse wrapper needs smooth transitions */
+.nav-collapse-inner { transition: max-height 0.25s ease; }
+
 .nav-divider { height: 1px; background: var(--border); margin: 10px 8px; }
 
 .sidenav-bottom { padding: 12px 14px; border-top: 1px solid var(--border); flex-shrink: 0; }
@@ -229,6 +252,28 @@ body {
 .sr-tags { display: flex; gap: 5px; }
 .stag { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 2px; background: var(--surface2); color: var(--text3); border: 1px solid var(--border); }
 .coming-soon { padding: 16px 22px; font-size: 13px; color: var(--text3); font-style: italic; border-top: 1px solid var(--border); font-family: 'Fraunces', serif; font-weight: 300; }
+
+/* Journey sub-grouping inside a topic-group card */
+.journey-section { border-top: 1px solid var(--border); padding: 4px 22px 10px; }
+.journey-section:first-of-type { border-top: 1px solid var(--border); }
+.journey-label { display: flex; align-items: baseline; gap: 10px; padding: 14px 0 4px; }
+.journey-label .jl-name { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text2); }
+.journey-label .jl-count { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text3); }
+
+/* Session row — planned state */
+.session-row.planned .sr-title { color: var(--text3); }
+.session-row.planned:hover .sr-title { color: var(--amber); }
+.sr-planned-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text3); padding: 2px 7px; border: 1px dashed var(--border); border-radius: 2px; }
+
+/* "Planned" pill used in article hero kickers and nav */
+.planned-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); border: 1px dashed var(--border); border-radius: 3px; padding: 3px 9px; }
+
+/* Placeholder article body block */
+.planned-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--text3); border-radius: 7px; padding: 28px 32px; max-width: 640px; }
+.planned-block .planned-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.planned-block .planned-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.planned-block .planned-desc { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 300; line-height: 1.7; color: var(--text2); margin: 0 0 18px; }
+.planned-block .planned-hint { font-size: 12px; color: var(--text3); font-style: italic; padding-top: 14px; border-top: 1px solid var(--border); margin: 0; }
 
 /* ════════════════════════════════════════
    ARTICLE PAGES

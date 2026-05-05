@@ -48,9 +48,75 @@
       </div>
       <div id="nav-llms">
         <div class="nav-sub">
-          <div class="nav-link" onclick="goPage('l0')" id="nav-l0"><span class="sdot"></span> 01 — Agent Fundamentals</div>
-          <div class="nav-link" onclick="goPage('l1')" id="nav-l1"><span class="sdot"></span> 02 — Context Window</div>
-          <div class="nav-link" onclick="goPage('l2')" id="nav-l2"><span class="sdot"></span> 03 — RAG &amp; Memory</div>
+
+          <!-- Journey: Basics (open by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-basics')">
+            <span>Basics</span>
+            <span class="chevron open" id="chv-llms-basics">›</span>
+          </div>
+          <div id="nav-llms-basics">
+            <div class="nav-sub">
+              <div class="nav-link" onclick="goPage('l0')" id="nav-l0"><span class="sdot"></span> 01 — Agent Fundamentals</div>
+              <div class="nav-link" onclick="goPage('l1')" id="nav-l1"><span class="sdot"></span> 02 — Context Window</div>
+              <div class="nav-link" onclick="goPage('l2')" id="nav-l2"><span class="sdot"></span> 03 — RAG &amp; Memory</div>
+              <div class="nav-link planned" onclick="goPage('l3')" id="nav-l3"><span class="sdot"></span> 04 — Prompt Engineering</div>
+              <div class="nav-link planned" onclick="goPage('l4')" id="nav-l4"><span class="sdot"></span> 05 — Fine-tuning vs Prompting</div>
+              <div class="nav-link planned" onclick="goPage('l5')" id="nav-l5"><span class="sdot"></span> 06 — Tokenisation</div>
+              <div class="nav-link planned" onclick="goPage('l6')" id="nav-l6"><span class="sdot"></span> 07 — Temperature &amp; Sampling</div>
+            </div>
+          </div>
+
+          <!-- Journey: Intermediate (collapsed by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-inter')">
+            <span>Intermediate</span>
+            <span class="chevron" id="chv-llms-inter">›</span>
+          </div>
+          <div id="nav-llms-inter" style="max-height:0;overflow:hidden;">
+            <div class="nav-sub">
+              <div class="nav-link planned" onclick="goPage('l7')"  id="nav-l7"><span class="sdot"></span> 01 — Multi-agent Systems</div>
+              <div class="nav-link planned" onclick="goPage('l8')"  id="nav-l8"><span class="sdot"></span> 02 — Evaluation &amp; Testing</div>
+              <div class="nav-link planned" onclick="goPage('l9')"  id="nav-l9"><span class="sdot"></span> 03 — Tool Calling in Depth</div>
+              <div class="nav-link planned" onclick="goPage('l10')" id="nav-l10"><span class="sdot"></span> 04 — Structured Outputs</div>
+              <div class="nav-link planned" onclick="goPage('l11')" id="nav-l11"><span class="sdot"></span> 05 — Long-context Strategies</div>
+              <div class="nav-link planned" onclick="goPage('l12')" id="nav-l12"><span class="sdot"></span> 06 — Guardrails &amp; Validation</div>
+            </div>
+          </div>
+
+          <!-- Journey: Advanced (collapsed by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-adv')">
+            <span>Advanced</span>
+            <span class="chevron" id="chv-llms-adv">›</span>
+          </div>
+          <div id="nav-llms-adv" style="max-height:0;overflow:hidden;">
+            <div class="nav-sub">
+              <div class="nav-link planned" onclick="goPage('l13')" id="nav-l13"><span class="sdot"></span> 01 — How LLMs Are Trained</div>
+              <div class="nav-link planned" onclick="goPage('l14')" id="nav-l14"><span class="sdot"></span> 02 — Attention &amp; Transformers</div>
+              <div class="nav-link planned" onclick="goPage('l15')" id="nav-l15"><span class="sdot"></span> 03 — Embeddings in Depth</div>
+              <div class="nav-link planned" onclick="goPage('l16')" id="nav-l16"><span class="sdot"></span> 04 — Safety &amp; Alignment</div>
+              <div class="nav-link planned" onclick="goPage('l17')" id="nav-l17"><span class="sdot"></span> 05 — Interpretability</div>
+              <div class="nav-link planned" onclick="goPage('l18')" id="nav-l18"><span class="sdot"></span> 06 — Inference Optimisation</div>
+              <div class="nav-link planned" onclick="goPage('l19')" id="nav-l19"><span class="sdot"></span> 07 — Multimodal Models</div>
+              <div class="nav-link planned" onclick="goPage('l20')" id="nav-l20"><span class="sdot"></span> 08 — Agents in Production</div>
+            </div>
+          </div>
+
+          <!-- Journey: Open Source (collapsed by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-oss')">
+            <span>Open Source</span>
+            <span class="chevron" id="chv-llms-oss">›</span>
+          </div>
+          <div id="nav-llms-oss" style="max-height:0;overflow:hidden;">
+            <div class="nav-sub">
+              <div class="nav-link planned" onclick="goPage('l21')" id="nav-l21"><span class="sdot"></span> 01 — OSS Model Landscape</div>
+              <div class="nav-link planned" onclick="goPage('l22')" id="nav-l22"><span class="sdot"></span> 02 — Running Models Locally</div>
+              <div class="nav-link planned" onclick="goPage('l23')" id="nav-l23"><span class="sdot"></span> 03 — Hugging Face</div>
+              <div class="nav-link planned" onclick="goPage('l24')" id="nav-l24"><span class="sdot"></span> 04 — Agent Frameworks</div>
+              <div class="nav-link planned" onclick="goPage('l25')" id="nav-l25"><span class="sdot"></span> 05 — Self-hosted vs API</div>
+              <div class="nav-link planned" onclick="goPage('l26')" id="nav-l26"><span class="sdot"></span> 06 — OSS Embeddings</div>
+              <div class="nav-link planned" onclick="goPage('l27')" id="nav-l27"><span class="sdot"></span> 07 — Vector Databases</div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -200,29 +266,192 @@ Your goal is not to test the student — it is to help them build genuine, reaso
                 <div class="tg-icon">◈</div>
                 <div>
                   <div class="tg-title">Learning LLMs</div>
-                  <div class="tg-desc">How large language models work, how agents are built on top of them, and how memory and retrieval are handled.</div>
+                  <div class="tg-desc">Four journeys from agent basics through to open-source tooling — sessions get added as each topic is worked through.</div>
                 </div>
               </div>
-              <span class="tg-count">3 sessions</span>
+              <span class="tg-count">3 of 28</span>
             </div>
-            <div class="topic-sessions">
-              <div class="session-row" onclick="goPage('l0')">
-                <span class="sr-num">Session 01</span>
-                <span class="sr-title">Agent Fundamentals</span>
-                <span class="sr-time">5 min</span>
-                <div class="sr-tags"><span class="stag">agents</span><span class="stag">loop</span></div>
+
+            <!-- Journey: Basics -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Basics</span>
+                <span class="jl-count">3 of 7 started</span>
               </div>
-              <div class="session-row" onclick="goPage('l1')">
-                <span class="sr-num">Session 02</span>
-                <span class="sr-title">Context Window</span>
-                <span class="sr-time">7 min</span>
-                <div class="sr-tags"><span class="stag">context</span><span class="stag">memory</span></div>
+              <div class="journey-sessions">
+                <div class="session-row" onclick="goPage('l0')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">Agent Fundamentals</span>
+                  <span class="sr-time">5 min</span>
+                  <div class="sr-tags"><span class="stag">agents</span><span class="stag">loop</span></div>
+                </div>
+                <div class="session-row" onclick="goPage('l1')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Context Window</span>
+                  <span class="sr-time">7 min</span>
+                  <div class="sr-tags"><span class="stag">context</span><span class="stag">memory</span></div>
+                </div>
+                <div class="session-row" onclick="goPage('l2')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">RAG &amp; Agent Memory</span>
+                  <span class="sr-time">8 min</span>
+                  <div class="sr-tags"><span class="stag">RAG</span><span class="stag">embeddings</span></div>
+                </div>
+                <div class="session-row planned" onclick="goPage('l3')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">Prompt Engineering</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l4')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Fine-tuning vs Prompting</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l5')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">Tokenisation</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l6')">
+                  <span class="sr-num">Session 07</span>
+                  <span class="sr-title">Temperature &amp; Sampling</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
               </div>
-              <div class="session-row" onclick="goPage('l2')">
-                <span class="sr-num">Session 03</span>
-                <span class="sr-title">RAG &amp; Agent Memory</span>
-                <span class="sr-time">8 min</span>
-                <div class="sr-tags"><span class="stag">RAG</span><span class="stag">embeddings</span></div>
+            </div>
+
+            <!-- Journey: Intermediate -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Intermediate</span>
+                <span class="jl-count">0 of 6 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row planned" onclick="goPage('l7')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">Multi-agent Systems</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l8')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Evaluation &amp; Testing</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l9')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">Tool Calling in Depth</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l10')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">Structured Outputs</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l11')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Long-context Strategies</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l12')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">Guardrails &amp; Validation</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Journey: Advanced -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Advanced</span>
+                <span class="jl-count">0 of 8 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row planned" onclick="goPage('l13')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">How LLMs Are Trained</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l14')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Attention &amp; Transformers</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l15')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">Embeddings in Depth</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l16')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">Safety &amp; Alignment</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l17')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Interpretability</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l18')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">Inference Optimisation</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l19')">
+                  <span class="sr-num">Session 07</span>
+                  <span class="sr-title">Multimodal Models</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l20')">
+                  <span class="sr-num">Session 08</span>
+                  <span class="sr-title">Agents in Production</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Journey: Open Source -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Open Source</span>
+                <span class="jl-count">0 of 7 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row planned" onclick="goPage('l21')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">OSS Model Landscape</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l22')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Running Models Locally</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l23')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">Hugging Face Ecosystem</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l24')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">OSS Agent Frameworks</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l25')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Self-hosted vs API</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l26')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">OSS Embedding Models</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l27')">
+                  <span class="sr-num">Session 07</span>
+                  <span class="sr-title">Vector Databases</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
               </div>
             </div>
           </div>
@@ -334,7 +563,7 @@ Your goal is not to test the student — it is to help them build genuine, reaso
 
           <div class="bottom-nav">
             <button class="nav-btn ghost"><div class="btn-dir">← Prev</div><div>—</div></button>
-            <div class="progress"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+            <div class="progress"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
             <button class="nav-btn" onclick="goPage('l1')"><div class="btn-dir">Next →</div><div>Context Window</div></button>
           </div>
         </article>
@@ -418,7 +647,7 @@ Your goal is not to test the student — it is to help them build genuine, reaso
 
           <div class="bottom-nav">
             <button class="nav-btn" onclick="goPage('l0')"><div class="btn-dir">← Prev</div><div>Agent Fundamentals</div></button>
-            <div class="progress"><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+            <div class="progress"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
             <button class="nav-btn" onclick="goPage('l2')"><div class="btn-dir">Next →</div><div>RAG &amp; Memory</div></button>
           </div>
         </article>
@@ -495,7 +724,607 @@ Your goal is not to test the student — it is to help them build genuine, reaso
 
           <div class="bottom-nav">
             <button class="nav-btn" onclick="goPage('l1')"><div class="btn-dir">← Prev</div><div>Context Window</div></button>
-            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l3')"><div class="btn-dir">Next →</div><div>Prompt Engineering</div></button>
+          </div>
+        </article>
+
+        <!-- ══ BASICS · SESSION 04 — Prompt Engineering (planned) ══ -->
+        <article class="page" id="page-l3">
+          <div class="article-hero" data-session="04">
+            <div class="art-kicker">
+              <span class="session-badge">Basics · Session 04</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Prompt<br><em>Engineering</em></h1>
+            <p class="art-lede">How the system prompt gets written well.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How the system prompt gets written well. Few-shot examples, chain-of-thought prompting, structured output formatting, role definition, negative examples. You've seen that a system prompt exists — this covers how to write one that actually works.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l2')"><div class="btn-dir">← Prev</div><div>RAG &amp; Memory</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l4')"><div class="btn-dir">Next →</div><div>Fine-tuning vs Prompting</div></button>
+          </div>
+        </article>
+
+        <!-- ══ BASICS · SESSION 05 — Fine-tuning vs. Prompting (planned) ══ -->
+        <article class="page" id="page-l4">
+          <div class="article-hero" data-session="05">
+            <div class="art-kicker">
+              <span class="session-badge">Basics · Session 05</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Fine-tuning<br><em>vs Prompting</em></h1>
+            <p class="art-lede">When to change the model's weights versus write better instructions.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">When do you change the model's weights vs. give it better instructions? Trade-offs between cost, data requirements, flexibility, and performance. When prompting hits its ceiling and fine-tuning becomes worth the effort.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l3')"><div class="btn-dir">← Prev</div><div>Prompt Engineering</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l5')"><div class="btn-dir">Next →</div><div>Tokenisation</div></button>
+          </div>
+        </article>
+
+        <!-- ══ BASICS · SESSION 06 — Tokenisation (planned) ══ -->
+        <article class="page" id="page-l5">
+          <div class="article-hero" data-session="06">
+            <div class="art-kicker">
+              <span class="session-badge">Basics · Session 06</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Tokens &amp;<br><em>Tokenisation</em></h1>
+            <p class="art-lede">How text actually becomes the numbers a model sees.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How text is actually broken into tokens before the model sees it. Why token count doesn't equal word count. How tokenisation affects cost, context limits, and some surprising model behaviours (e.g. why LLMs are bad at counting letters).</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l4')"><div class="btn-dir">← Prev</div><div>Fine-tuning vs Prompting</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l6')"><div class="btn-dir">Next →</div><div>Temperature &amp; Sampling</div></button>
+          </div>
+        </article>
+
+        <!-- ══ BASICS · SESSION 07 — Temperature & Sampling (planned) ══ -->
+        <article class="page" id="page-l6">
+          <div class="article-hero" data-session="07">
+            <div class="art-kicker">
+              <span class="session-badge">Basics · Session 07</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Temperature<br><em>&amp; Sampling</em></h1>
+            <p class="art-lede">What temperature actually does — and when you want determinism versus variety.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">What temperature actually does to model output. Top-p, top-k sampling. The difference between deterministic and probabilistic outputs and when you want each.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l5')"><div class="btn-dir">← Prev</div><div>Tokenisation</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+            <button class="nav-btn" onclick="goPage('l7')"><div class="btn-dir">Next →</div><div>Multi-agent Systems</div></button>
+          </div>
+        </article>
+
+        <!-- ══ INTERMEDIATE · SESSION 01 — Multi-agent Systems (planned) ══ -->
+        <article class="page" id="page-l7">
+          <div class="article-hero" data-session="01">
+            <div class="art-kicker">
+              <span class="session-badge">Intermediate · Session 01</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Multi-agent<br><em>Systems</em></h1>
+            <p class="art-lede">What happens when multiple agents work together.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">What happens when multiple agents work together. Orchestrator/subagent patterns, how agents pass context between each other, parallelism, failure modes. When one agent is not enough.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l6')"><div class="btn-dir">← Prev</div><div>Temperature &amp; Sampling</div></button>
+            <div class="progress"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l8')"><div class="btn-dir">Next →</div><div>Evaluation &amp; Testing</div></button>
+          </div>
+        </article>
+
+        <!-- ══ INTERMEDIATE · SESSION 02 — Evaluation & Testing (planned) ══ -->
+        <article class="page" id="page-l8">
+          <div class="article-hero" data-session="02">
+            <div class="art-kicker">
+              <span class="session-badge">Intermediate · Session 02</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Evaluation<br><em>&amp; Testing</em></h1>
+            <p class="art-lede">How do you know if your agent is actually working?</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How do you know if your agent is actually working? LLM-as-judge, human eval, benchmark datasets, regression testing. Why evaluation is harder than it sounds and why it matters more than most people expect.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l7')"><div class="btn-dir">← Prev</div><div>Multi-agent Systems</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l9')"><div class="btn-dir">Next →</div><div>Tool Calling in Depth</div></button>
+          </div>
+        </article>
+
+        <!-- ══ INTERMEDIATE · SESSION 03 — Tool / Function Calling in Depth (planned) ══ -->
+        <article class="page" id="page-l9">
+          <div class="article-hero" data-session="03">
+            <div class="art-kicker">
+              <span class="session-badge">Intermediate · Session 03</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Tool Calling<br><em>in Depth</em></h1>
+            <p class="art-lede">The full mechanics of how tool use actually works in the API.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">The full mechanics of how tool use works in the API. Structured tool definitions, parallel tool calls, error handling, tool result formatting. Moving beyond knowing tools exist to knowing how to design them well.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l8')"><div class="btn-dir">← Prev</div><div>Evaluation &amp; Testing</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l10')"><div class="btn-dir">Next →</div><div>Structured Outputs</div></button>
+          </div>
+        </article>
+
+        <!-- ══ INTERMEDIATE · SESSION 04 — Structured Outputs (planned) ══ -->
+        <article class="page" id="page-l10">
+          <div class="article-hero" data-session="04">
+            <div class="art-kicker">
+              <span class="session-badge">Intermediate · Session 04</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Structured<br><em>Outputs</em></h1>
+            <p class="art-lede">Getting the model to return reliable JSON or typed data.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">Getting the model to return reliable JSON or typed data. Why this is harder than it sounds, schema enforcement, validation strategies, and when to use constrained decoding.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l9')"><div class="btn-dir">← Prev</div><div>Tool Calling in Depth</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l11')"><div class="btn-dir">Next →</div><div>Long-context Strategies</div></button>
+          </div>
+        </article>
+
+        <!-- ══ INTERMEDIATE · SESSION 05 — Long-context Strategies (planned) ══ -->
+        <article class="page" id="page-l11">
+          <div class="article-hero" data-session="05">
+            <div class="art-kicker">
+              <span class="session-badge">Intermediate · Session 05</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Long-context<br><em>Strategies</em></h1>
+            <p class="art-lede">Large context windows don't mean you can stuff everything in.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">Models now support very large context windows — but performance degrades in non-obvious ways. The "lost in the middle" problem, when RAG is still better than just stuffing everything in, attention patterns at scale.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l10')"><div class="btn-dir">← Prev</div><div>Structured Outputs</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l12')"><div class="btn-dir">Next →</div><div>Guardrails &amp; Validation</div></button>
+          </div>
+        </article>
+
+        <!-- ══ INTERMEDIATE · SESSION 06 — Guardrails & Output Validation (planned) ══ -->
+        <article class="page" id="page-l12">
+          <div class="article-hero" data-session="06">
+            <div class="art-kicker">
+              <span class="session-badge">Intermediate · Session 06</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Guardrails<br><em>&amp; Validation</em></h1>
+            <p class="art-lede">Keeping LLM systems from producing harmful or off-topic output in production.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How to prevent an LLM system from producing harmful, incorrect, or off-topic outputs in production. Input/output filtering, constitutional AI approaches, programmatic validation layers.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l11')"><div class="btn-dir">← Prev</div><div>Long-context Strategies</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+            <button class="nav-btn" onclick="goPage('l13')"><div class="btn-dir">Next →</div><div>How LLMs Are Trained</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 01 — How LLMs Are Trained (planned) ══ -->
+        <article class="page" id="page-l13">
+          <div class="article-hero" data-session="01">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 01</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">How LLMs<br><em>Are Trained</em></h1>
+            <p class="art-lede">Pre-training, SFT, RLHF, DPO — what each stage shapes and why it matters.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">Pre-training on large corpora, supervised fine-tuning (SFT), reinforcement learning from human feedback (RLHF), direct preference optimisation (DPO). What each stage shapes and why it matters for understanding model behaviour and its limits.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l12')"><div class="btn-dir">← Prev</div><div>Guardrails &amp; Validation</div></button>
+            <div class="progress"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l14')"><div class="btn-dir">Next →</div><div>Attention &amp; Transformers</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 02 — Attention Mechanism & Transformers (planned) ══ -->
+        <article class="page" id="page-l14">
+          <div class="article-hero" data-session="02">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 02</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Attention &amp;<br><em>Transformers</em></h1>
+            <p class="art-lede">How the transformer architecture actually works — beyond "predicts the next token".</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How the transformer architecture actually works. Self-attention, multi-head attention, positional encoding. Not just "it predicts the next token" — what is actually happening computationally and why the architecture scales the way it does.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l13')"><div class="btn-dir">← Prev</div><div>How LLMs Are Trained</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l15')"><div class="btn-dir">Next →</div><div>Embeddings in Depth</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 03 — Embeddings in Depth (planned) ══ -->
+        <article class="page" id="page-l15">
+          <div class="article-hero" data-session="03">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 03</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Embeddings<br><em>in Depth</em></h1>
+            <p class="art-lede">Beyond the RAG intuition — how embedding models are actually built.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">Beyond the intuition covered in the RAG session. Embedding model architectures, contrastive learning, how embedding models are trained differently from generative models, dimensionality and its trade-offs, matryoshka embeddings.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l14')"><div class="btn-dir">← Prev</div><div>Attention &amp; Transformers</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l16')"><div class="btn-dir">Next →</div><div>Safety &amp; Alignment</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 04 — Safety & Alignment (planned) ══ -->
+        <article class="page" id="page-l16">
+          <div class="article-hero" data-session="04">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 04</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Safety &amp;<br><em>Alignment</em></h1>
+            <p class="art-lede">What alignment actually means and why it's hard.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">What alignment actually means and why it is hard. RLHF as an alignment technique, its limitations, scalable oversight, interpretability research. Constitutional AI, red-teaming, jailbreaks and what they reveal about model internals.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l15')"><div class="btn-dir">← Prev</div><div>Embeddings in Depth</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l17')"><div class="btn-dir">Next →</div><div>Interpretability</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 05 — Interpretability & Mechanistic Analysis (planned) ══ -->
+        <article class="page" id="page-l17">
+          <div class="article-hero" data-session="05">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 05</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Interpretability<br><em>&amp; Mechanisms</em></h1>
+            <p class="art-lede">What's actually happening inside a model when it produces output?</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">What's actually happening inside a model when it produces output? Circuits, features, superposition. Anthropic's interpretability research (dictionary learning, feature visualisation). Early-stage field but growing fast.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l16')"><div class="btn-dir">← Prev</div><div>Safety &amp; Alignment</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l18')"><div class="btn-dir">Next →</div><div>Inference Optimisation</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 06 — Inference Optimisation (planned) ══ -->
+        <article class="page" id="page-l18">
+          <div class="article-hero" data-session="06">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 06</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Inference<br><em>Optimisation</em></h1>
+            <p class="art-lede">How models are made fast and cheap enough to run at scale.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How models are made fast and cheap to run. Quantisation, KV cache, speculative decoding, batching strategies, model distillation. Relevant when moving from prototype to production at scale.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l17')"><div class="btn-dir">← Prev</div><div>Interpretability</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l19')"><div class="btn-dir">Next →</div><div>Multimodal Models</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 07 — Multimodal Models (planned) ══ -->
+        <article class="page" id="page-l19">
+          <div class="article-hero" data-session="07">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 07</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Multimodal<br><em>Models</em></h1>
+            <p class="art-lede">How vision, audio and other modalities get incorporated alongside text.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How vision, audio, and other modalities get incorporated alongside text. Architecture changes, cross-modal attention, practical implications for agent design when the model can see and hear as well as read.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l18')"><div class="btn-dir">← Prev</div><div>Inference Optimisation</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l20')"><div class="btn-dir">Next →</div><div>Agents in Production</div></button>
+          </div>
+        </article>
+
+        <!-- ══ ADVANCED · SESSION 08 — Agents in Production (planned) ══ -->
+        <article class="page" id="page-l20">
+          <div class="article-hero" data-session="08">
+            <div class="art-kicker">
+              <span class="session-badge">Advanced · Session 08</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Agents in<br><em>Production</em></h1>
+            <p class="art-lede">The gap between a working prototype and a reliable production system.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">The gap between a working prototype and a reliable production system. Observability, logging, tracing agent runs, latency budgets, cost management, failure recovery, human-in-the-loop escalation patterns.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l19')"><div class="btn-dir">← Prev</div><div>Multimodal Models</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+            <button class="nav-btn" onclick="goPage('l21')"><div class="btn-dir">Next →</div><div>OSS Model Landscape</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 01 — Model Landscape (planned) ══ -->
+        <article class="page" id="page-l21">
+          <div class="article-hero" data-session="01">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 01</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Open Source<br><em>Model Landscape</em></h1>
+            <p class="art-lede">Llama, Mistral, Gemma, Qwen, Phi — and where each one sits.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">The major open source model families and where they sit relative to closed models. Llama (Meta), Mistral, Gemma (Google), Qwen (Alibaba), Phi (Microsoft) — what each is optimised for, licensing differences, and how quickly the gap with closed models is (or isn't) closing.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l20')"><div class="btn-dir">← Prev</div><div>Agents in Production</div></button>
+            <div class="progress"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l22')"><div class="btn-dir">Next →</div><div>Running Models Locally</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 02 — Running Models Locally (planned) ══ -->
+        <article class="page" id="page-l22">
+          <div class="article-hero" data-session="02">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 02</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Running Models<br><em>Locally</em></h1>
+            <p class="art-lede">What's practical on your own hardware — and what isn't.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">How to run LLMs on your own hardware. Ollama, LM Studio, llama.cpp. Quantisation formats (GGUF, GPTQ) and the quality/size trade-off. When local inference is practical and when it isn't — VRAM requirements, speed expectations, use cases where privacy or offline operation make it worth it.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l21')"><div class="btn-dir">← Prev</div><div>OSS Model Landscape</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l23')"><div class="btn-dir">Next →</div><div>Hugging Face Ecosystem</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 03 — Hugging Face Ecosystem (planned) ══ -->
+        <article class="page" id="page-l23">
+          <div class="article-hero" data-session="03">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 03</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Hugging Face<br><em>Ecosystem</em></h1>
+            <p class="art-lede">The central hub for open source models, datasets, and tooling.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">The central hub for open source models, datasets, and tooling. The Transformers library, model cards, the Hub API. Spaces for demos, the Inference API for hosted open models. How to navigate the ecosystem and evaluate what's actually worth using.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l22')"><div class="btn-dir">← Prev</div><div>Running Models Locally</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l24')"><div class="btn-dir">Next →</div><div>OSS Agent Frameworks</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 04 — Agent Frameworks (planned) ══ -->
+        <article class="page" id="page-l24">
+          <div class="article-hero" data-session="04">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 04</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Open Source<br><em>Agent Frameworks</em></h1>
+            <p class="art-lede">LangChain, LlamaIndex, CrewAI, AutoGen — where they help, where they don't.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">LangChain, LlamaIndex, CrewAI, AutoGen — what problem each solves, where they help and where they add unnecessary complexity. The recurring debate of framework vs. building from scratch, and how to evaluate which is appropriate for a given project.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l23')"><div class="btn-dir">← Prev</div><div>Hugging Face Ecosystem</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l25')"><div class="btn-dir">Next →</div><div>Self-hosted vs API</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 05 — Self-hosted vs. API Trade-offs (planned) ══ -->
+        <article class="page" id="page-l25">
+          <div class="article-hero" data-session="05">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 05</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Self-hosted<br><em>vs. API</em></h1>
+            <p class="art-lede">When it makes sense to move from a managed API to running your own model.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">The full cost/benefit analysis: API pricing vs. infrastructure cost, latency, data privacy, rate limits, model update control, fine-tuning access. When it makes sense to move from a managed API to running your own model, and what that transition actually involves.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l24')"><div class="btn-dir">← Prev</div><div>OSS Agent Frameworks</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l26')"><div class="btn-dir">Next →</div><div>OSS Embedding Models</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 06 — Open Source Embedding Models (planned) ══ -->
+        <article class="page" id="page-l26">
+          <div class="article-hero" data-session="06">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 06</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Open Source<br><em>Embeddings</em></h1>
+            <p class="art-lede">Alternatives to closed embedding APIs — and when they match or beat them.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">Alternatives to closed embedding APIs. Sentence Transformers, BGE, E5, Nomic Embed. How to evaluate embedding models (MTEB benchmark), when open models match or exceed closed ones, and how to self-host them alongside a vector database.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l25')"><div class="btn-dir">← Prev</div><div>Self-hosted vs API</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+            <button class="nav-btn" onclick="goPage('l27')"><div class="btn-dir">Next →</div><div>Vector Databases</div></button>
+          </div>
+        </article>
+
+        <!-- ══ OPEN SOURCE · SESSION 07 — Vector Databases Tooling Overview (planned) ══ -->
+        <article class="page" id="page-l27">
+          <div class="article-hero" data-session="07">
+            <div class="art-kicker">
+              <span class="session-badge">Open Source · Session 07</span>
+              <span class="planned-pill">Planned</span>
+            </div>
+            <h1 class="art-h1">Vector<br><em>Databases</em></h1>
+            <p class="art-lede">A practical comparison — Chroma, Pinecone, Weaviate, Qdrant, pgvector.</p>
+          </div>
+          <div class="body">
+            <div class="planned-block">
+              <div class="planned-title">Not started yet</div>
+              <p class="planned-desc">A practical comparison of the main options: Chroma (local/simple), Pinecone (managed), Weaviate, Qdrant, pgvector (Postgres extension). Trade-offs between managed services and self-hosted, and how to choose based on scale and operational complexity.</p>
+              <p class="planned-hint">This session will be published once the topic is worked through with the Socratic tutor.</p>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <button class="nav-btn" onclick="goPage('l26')"><div class="btn-dir">← Prev</div><div>OSS Embedding Models</div></button>
+            <div class="progress"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
             <button class="nav-btn ghost"><div class="btn-dir">Next →</div><div>—</div></button>
           </div>
         </article>
