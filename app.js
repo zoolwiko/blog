@@ -69,6 +69,13 @@ function goPage(id, pushState = true) {
   // Close mobile drawer if open
   document.body.classList.remove('sidenav-open');
 
+  // Render mermaid diagrams now that the page is visible (startOnLoad:false avoids
+  // rendering into hidden elements which produces black/empty SVGs)
+  if (page && typeof mermaid !== 'undefined') {
+    const unrendered = [...page.querySelectorAll('.mermaid:not([data-processed])')];
+    if (unrendered.length) mermaid.run({ nodes: unrendered });
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   // Update URL so the page can be shared / bookmarked
