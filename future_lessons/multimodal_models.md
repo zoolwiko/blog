@@ -1,0 +1,1 @@
+How vision, audio, and other modalities get incorporated alongside text. Architecture changes, cross-modal attention, practical implications for agent design when the model can see and hear as well as read.

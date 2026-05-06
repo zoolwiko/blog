@@ -1,0 +1,1 @@
+Pre-training on large corpora, supervised fine-tuning (SFT), reinforcement learning from human feedback (RLHF), direct preference optimisation (DPO). What each stage shapes and why it matters for understanding model behaviour and its limits.

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Field Notes — Marcin's Learning Journey</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f0f13'/%3E%3Cpath d='M8 9h10a5 5 0 0 1 0 10H8V9z' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linejoin='round'/%3E%3Cline x1='8' y1='23' x2='14' y2='23' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      try {
+        var stored = localStorage.getItem('theme');
+        var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        var theme = stored || (prefersLight ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══════════════════════════════════════
+       SIDENAV
+  ══════════════════════════════════════ -->
+  <nav class="sidenav">
+    <div class="sidenav-top">
+      <div class="site-eyebrow">Field Notes</div>
+      <div class="site-name">Marcin's <span>Journey</span></div>
+      <div class="site-sub">Learning with AI across different topics</div>
+    </div>
+
+    <div class="nav-tree">
+      <div class="nav-link" onclick="goPage('home')" id="nav-home">
+        <span class="nav-icon">⌂</span> Home
+      </div>
+
+      <div class="nav-divider"></div>
+      <div class="nav-section-label">Learning</div>
+
+      <!-- ── Learning LLMs ── -->
+      <div class="nav-collapse-btn" onclick="toggleNav('llms')">
+        <span class="nav-icon" style="font-size:12px;">◈</span>
+        <span style="font-size:13px;font-weight:500;">Learning LLMs</span>
+        <span class="chevron open" id="chv-llms">›</span>
+      </div>
+      <div id="nav-llms">
+        <div class="nav-sub">
+
+          <!-- Journey: Basics (open by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-basics')">
+            <span>Basics</span>
+            <span class="chevron open" id="chv-llms-basics">›</span>
+          </div>
+          <div id="nav-llms-basics">
+            <div class="nav-sub">
+              <div class="nav-link" onclick="goPage('l0')" id="nav-l0"><span class="sdot"></span> 01 — Agent Fundamentals</div>
+              <div class="nav-link" onclick="goPage('l1')" id="nav-l1"><span class="sdot"></span> 02 — Context Window</div>
+              <div class="nav-link" onclick="goPage('l2')" id="nav-l2"><span class="sdot"></span> 03 — RAG &amp; Memory</div>
+              <div class="nav-link planned" onclick="goPage('l3')" id="nav-l3"><span class="sdot"></span> 04 — Prompt Engineering</div>
+              <div class="nav-link planned" onclick="goPage('l4')" id="nav-l4"><span class="sdot"></span> 05 — Fine-tuning vs Prompting</div>
+              <div class="nav-link planned" onclick="goPage('l5')" id="nav-l5"><span class="sdot"></span> 06 — Tokenisation</div>
+              <div class="nav-link planned" onclick="goPage('l6')" id="nav-l6"><span class="sdot"></span> 07 — Temperature &amp; Sampling</div>
+            </div>
+          </div>
+
+          <!-- Journey: Intermediate (collapsed by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-inter')">
+            <span>Intermediate</span>
+            <span class="chevron" id="chv-llms-inter">›</span>
+          </div>
+          <div id="nav-llms-inter" style="max-height:0;overflow:hidden;">
+            <div class="nav-sub">
+              <div class="nav-link planned" onclick="goPage('l7')"  id="nav-l7"><span class="sdot"></span> 01 — Multi-agent Systems</div>
+              <div class="nav-link planned" onclick="goPage('l8')"  id="nav-l8"><span class="sdot"></span> 02 — Evaluation &amp; Testing</div>
+              <div class="nav-link planned" onclick="goPage('l9')"  id="nav-l9"><span class="sdot"></span> 03 — Tool Calling in Depth</div>
+              <div class="nav-link planned" onclick="goPage('l10')" id="nav-l10"><span class="sdot"></span> 04 — Structured Outputs</div>
+              <div class="nav-link planned" onclick="goPage('l11')" id="nav-l11"><span class="sdot"></span> 05 — Long-context Strategies</div>
+              <div class="nav-link planned" onclick="goPage('l12')" id="nav-l12"><span class="sdot"></span> 06 — Guardrails &amp; Validation</div>
+            </div>
+          </div>
+
+          <!-- Journey: Advanced (collapsed by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-adv')">
+            <span>Advanced</span>
+            <span class="chevron" id="chv-llms-adv">›</span>
+          </div>
+          <div id="nav-llms-adv" style="max-height:0;overflow:hidden;">
+            <div class="nav-sub">
+              <div class="nav-link planned" onclick="goPage('l13')" id="nav-l13"><span class="sdot"></span> 01 — How LLMs Are Trained</div>
+              <div class="nav-link planned" onclick="goPage('l14')" id="nav-l14"><span class="sdot"></span> 02 — Attention &amp; Transformers</div>
+              <div class="nav-link planned" onclick="goPage('l15')" id="nav-l15"><span class="sdot"></span> 03 — Embeddings in Depth</div>
+              <div class="nav-link planned" onclick="goPage('l16')" id="nav-l16"><span class="sdot"></span> 04 — Safety &amp; Alignment</div>
+              <div class="nav-link planned" onclick="goPage('l17')" id="nav-l17"><span class="sdot"></span> 05 — Interpretability</div>
+              <div class="nav-link planned" onclick="goPage('l18')" id="nav-l18"><span class="sdot"></span> 06 — Inference Optimisation</div>
+              <div class="nav-link planned" onclick="goPage('l19')" id="nav-l19"><span class="sdot"></span> 07 — Multimodal Models</div>
+              <div class="nav-link planned" onclick="goPage('l20')" id="nav-l20"><span class="sdot"></span> 08 — Agents in Production</div>
+            </div>
+          </div>
+
+          <!-- Journey: Open Source (collapsed by default) -->
+          <div class="nav-journey-btn" onclick="toggleNav('llms-oss')">
+            <span>Open Source</span>
+            <span class="chevron" id="chv-llms-oss">›</span>
+          </div>
+          <div id="nav-llms-oss" style="max-height:0;overflow:hidden;">
+            <div class="nav-sub">
+              <div class="nav-link planned" onclick="goPage('l21')" id="nav-l21"><span class="sdot"></span> 01 — OSS Model Landscape</div>
+              <div class="nav-link planned" onclick="goPage('l22')" id="nav-l22"><span class="sdot"></span> 02 — Running Models Locally</div>
+              <div class="nav-link planned" onclick="goPage('l23')" id="nav-l23"><span class="sdot"></span> 03 — Hugging Face</div>
+              <div class="nav-link planned" onclick="goPage('l24')" id="nav-l24"><span class="sdot"></span> 04 — Agent Frameworks</div>
+              <div class="nav-link planned" onclick="goPage('l25')" id="nav-l25"><span class="sdot"></span> 05 — Self-hosted vs API</div>
+              <div class="nav-link planned" onclick="goPage('l26')" id="nav-l26"><span class="sdot"></span> 06 — OSS Embeddings</div>
+              <div class="nav-link planned" onclick="goPage('l27')" id="nav-l27"><span class="sdot"></span> 07 — Vector Databases</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="nav-collapse-btn" style="opacity:0.35;cursor:default;margin-top:4px;">
+        <span class="nav-icon" style="font-size:12px;">◈</span>
+        <span style="font-size:13px;font-weight:500;">Coming soon…</span>
+      </div>
+
+    </div>
+
+    <div class="sidenav-bottom">
+      <button class="theme-btn" onclick="toggleTheme()">
+        <svg class="theme-icon sun" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="8" cy="8" r="2.8"/>
+          <path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.3 3.3l1.1 1.1M11.6 11.6l1.1 1.1M3.3 12.7l1.1-1.1M11.6 4.4l1.1-1.1"/>
+        </svg>
+        <svg class="theme-icon moon" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+          <path d="M13.2 10.2A5.5 5.5 0 0 1 5.8 2.8a5.5 5.5 0 1 0 7.4 7.4z"/>
+        </svg>
+        <span id="theme-label">Light mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       MAIN AREA
+  ══════════════════════════════════════ -->
+  <button class="menu-btn" onclick="toggleSidenav()" aria-label="Toggle menu">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="1" y1="2" x2="17" y2="2"/><line x1="1" y1="7" x2="17" y2="7"/><line x1="1" y1="12" x2="11" y2="12"/></svg>
+  </button>
+  <div class="sidenav-backdrop" onclick="toggleSidenav()" aria-hidden="true"></div>
+
+  <div class="main-area">
+
+    <!-- ────────────────────────────────────
+         HOME PAGE
+    ──────────────────────────────────── -->
+    <div class="wrap full" id="wrap-home" data-wrap>
+      <div class="page active" id="page-home">
+
+        <div class="home-hero">
+          <div class="eyebrow-row">
+            <span class="badge-amber">Field Notes</span>
+            <span class="meta-dim">Marcin's learning journal</span>
+          </div>
+          <h1 class="big-title">Learning<br><em>with AI</em></h1>
+          <p class="big-lede">A personal record of learning different topics using AI as a Socratic tutor — where understanding is earned through dialogue, not handed over in a summary.</p>
+          <div class="action-row">
+            <button class="btn-primary" onclick="goPage('l0')">Start with LLMs →</button>
+          </div>
+        </div>
+
+        <!-- Philosophy -->
+        <div style="margin-bottom:52px;">
+          <h2 class="section-title">The approach</h2>
+          <div class="phil-grid">
+            <div class="phil-card">
+              <h4>Why AI as a tutor?</h4>
+              <p>A good tutor doesn't hand you the answer — it asks you the right question at the right moment. AI can do this at any hour, on any topic, calibrated to exactly where your understanding currently is.</p>
+            </div>
+            <div class="phil-card">
+              <h4>Socratic dialogue</h4>
+              <p>Each session is a conversation, not a lecture. The AI identifies a concept, asks a question rather than explaining it, and guides reasoning toward the insight. You have to think to make progress.</p>
+            </div>
+            <div class="phil-card">
+              <h4>Active recall over passive reading</h4>
+              <p>Being asked a question before hearing the answer forces retrieval — one of the most effective memory techniques known. You can't skim a Socratic conversation.</p>
+            </div>
+            <div class="phil-card">
+              <h4>Documented understanding</h4>
+              <p>The notes here weren't copied from a textbook. They represent understanding that was reasoned toward — the cheat sheets are the output of that dialogue, not the input.</p>
+            </div>
+          </div>
+
+          <div class="prompt-block">
+            <div class="prompt-label">How the tutor behaves — key rules (from Anthropic)</div>
+            <ul>
+              <li><span class="hl">Act as a tutor</span> when the student is asking for help understanding concepts or working through problems — use leading questions, not direct answers.</li>
+              <li><span class="hl">Provide direct assistance</span> when study materials, summaries, or outlines are explicitly requested.</li>
+              <li><span class="hl">Gentle nudges</span> when headed in the wrong direction — never just say "wrong". Redirect through the next question.</li>
+              <li><span class="hl">Do not solve</span> problems directly. The student's own reasoning is the point.</li>
+              <li><span class="hl">Balance</span> between pure Socratic dialogue and direct instruction — some concepts need explaining before they can be questioned.</li>
+            </ul>
+          </div>
+
+          <!-- Expandable: full Anthropic Socratic Tutor system prompt -->
+          <div class="skill-expand" id="skill-expand">
+            <button class="skill-expand-toggle" onclick="toggleSkill()" aria-expanded="false" aria-controls="skill-body">
+              <span class="skill-toggle-left">
+                <span class="skill-toggle-icon">◎</span>
+                <span class="skill-toggle-title">Full system prompt — Anthropic Socratic Tutor</span>
+                <span class="skill-toggle-src">prompt library</span>
+              </span>
+              <span class="skill-toggle-chevron" id="skill-chv">›</span>
+            </button>
+            <div class="skill-body" id="skill-body" hidden>
+              <div class="skill-body-inner">
+                <div class="skill-copy-row">
+                  <button class="skill-copy-btn" onclick="copySkillPrompt(this)" title="Copy to clipboard">
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.4"/><path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-6A1.5 1.5 0 0 0 2 3.5v6A1.5 1.5 0 0 0 3.5 11H5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                    <span>Copy</span>
+                  </button>
+                </div>
+                <pre class="skill-pre" id="skill-prompt-text">Your task is to help students understand a topic by acting as a Socratic tutor. Rather than providing direct answers, guide the student to discover insights themselves through thoughtful questioning.
+
+When a student asks a question or presents their thinking, respond with a question (or short series of questions) that helps them reason toward the answer. Build each question on what the student has already said or demonstrated.
+
+Key rules:
+
+1. Ask, don't tell. When a student asks something, respond with a question that leads them toward the answer rather than stating it.
+
+2. One question at a time. Avoid overwhelming the student with multiple questions at once — ask one focused question and wait for a response.
+
+3. Never say "wrong." If the student's reasoning is off-track, redirect with a question that gently exposes the gap — don't simply say they are incorrect.
+
+4. Build on what they know. Start from whatever the student has already demonstrated understanding of, and extend from there.
+
+5. Celebrate genuine insight. When the student arrives at a correct conclusion through their own reasoning, acknowledge it warmly before pressing further.
+
+6. Know when to explain. If the student is clearly stuck after several attempts, or if they explicitly ask for a direct explanation, provide one. Some concepts require direct instruction before they can be questioned. Return to the Socratic method once the foundation is established.
+
+7. Balance dialogue with instruction. Pure Socratic questioning is not always most efficient. Blend in short explanations when the student needs grounding, then continue guiding through questions.
+
+Your goal is not to test the student — it is to help them build genuine, reasoned understanding. Every question you ask should be a step toward that.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topics -->
+        <div>
+          <h2 class="section-title">Learning topics</h2>
+
+          <!-- Learning LLMs -->
+          <div class="topic-group">
+            <div class="topic-group-header" onclick="goPage('l0')">
+              <div class="tg-left">
+                <div class="tg-icon">◈</div>
+                <div>
+                  <div class="tg-title">Learning LLMs</div>
+                  <div class="tg-desc">Four journeys from agent basics through to open-source tooling — sessions get added as each topic is worked through.</div>
+                </div>
+              </div>
+              <span class="tg-count">3 of 28</span>
+            </div>
+
+            <!-- Journey: Basics -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Basics</span>
+                <span class="jl-count">3 of 7 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row" onclick="goPage('l0')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">Agent Fundamentals</span>
+                  <span class="sr-time">5 min</span>
+                  <div class="sr-tags"><span class="stag">agents</span><span class="stag">loop</span></div>
+                </div>
+                <div class="session-row" onclick="goPage('l1')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Context Window</span>
+                  <span class="sr-time">7 min</span>
+                  <div class="sr-tags"><span class="stag">context</span><span class="stag">memory</span></div>
+                </div>
+                <div class="session-row" onclick="goPage('l2')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">RAG &amp; Agent Memory</span>
+                  <span class="sr-time">8 min</span>
+                  <div class="sr-tags"><span class="stag">RAG</span><span class="stag">embeddings</span></div>
+                </div>
+                <div class="session-row planned" onclick="goPage('l3')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">Prompt Engineering</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l4')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Fine-tuning vs Prompting</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l5')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">Tokenisation</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l6')">
+                  <span class="sr-num">Session 07</span>
+                  <span class="sr-title">Temperature &amp; Sampling</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Journey: Intermediate -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Intermediate</span>
+                <span class="jl-count">0 of 6 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row planned" onclick="goPage('l7')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">Multi-agent Systems</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l8')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Evaluation &amp; Testing</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l9')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">Tool Calling in Depth</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l10')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">Structured Outputs</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l11')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Long-context Strategies</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l12')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">Guardrails &amp; Validation</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Journey: Advanced -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Advanced</span>
+                <span class="jl-count">0 of 8 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row planned" onclick="goPage('l13')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">How LLMs Are Trained</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l14')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Attention &amp; Transformers</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l15')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">Embeddings in Depth</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l16')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">Safety &amp; Alignment</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l17')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Interpretability</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l18')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">Inference Optimisation</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l19')">
+                  <span class="sr-num">Session 07</span>
+                  <span class="sr-title">Multimodal Models</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l20')">
+                  <span class="sr-num">Session 08</span>
+                  <span class="sr-title">Agents in Production</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Journey: Open Source -->
+            <div class="journey-section">
+              <div class="journey-label">
+                <span class="jl-name">Open Source</span>
+                <span class="jl-count">0 of 7 started</span>
+              </div>
+              <div class="journey-sessions">
+                <div class="session-row planned" onclick="goPage('l21')">
+                  <span class="sr-num">Session 01</span>
+                  <span class="sr-title">OSS Model Landscape</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l22')">
+                  <span class="sr-num">Session 02</span>
+                  <span class="sr-title">Running Models Locally</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l23')">
+                  <span class="sr-num">Session 03</span>
+                  <span class="sr-title">Hugging Face Ecosystem</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l24')">
+                  <span class="sr-num">Session 04</span>
+                  <span class="sr-title">OSS Agent Frameworks</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l25')">
+                  <span class="sr-num">Session 05</span>
+                  <span class="sr-title">Self-hosted vs API</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l26')">
+                  <span class="sr-num">Session 06</span>
+                  <span class="sr-title">OSS Embedding Models</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+                <div class="session-row planned" onclick="goPage('l27')">
+                  <span class="sr-num">Session 07</span>
+                  <span class="sr-title">Vector Databases</span>
+                  <span class="sr-planned-tag">planned</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="topic-group" style="opacity:0.45;">
+            <div class="topic-group-header" style="cursor:default;">
+              <div class="tg-left">
+                <div class="tg-icon">◈</div>
+                <div>
+                  <div class="tg-title">Next topic</div>
+                  <div class="tg-desc">More learning sessions will appear here as new topics are explored.</div>
+                </div>
+              </div>
+              <span class="tg-count">coming soon</span>
+            </div>
+            <div class="coming-soon">Sessions will be added as they are completed.</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /wrap-home -->
+
+    <!-- ────────────────────────────────────
+         LESSON PAGES
+    ──────────────────────────────────── -->
+    <div class="wrap" id="wrap-lessons" data-wrap style="display:none;">
+      <div>
+
+<!-- ARTICLES_PLACEHOLDER -->
+
+      </div><!-- /lesson articles -->
+
+      <!-- Right TOC (auto-populated by app.js) -->
+      <aside class="right-toc" id="right-toc">
+        <div class="toc-hd">On this page</div>
+        <div id="toc-links"></div>
+      </aside>
+
+    </div><!-- /wrap-lessons -->
+
+  </div><!-- /main-area -->
+</div><!-- /shell -->
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+</script>
+<script src="app.js"></script>
+</body>
+</html>

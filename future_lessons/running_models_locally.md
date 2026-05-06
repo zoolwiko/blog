@@ -1,0 +1,1 @@
+How to run LLMs on your own hardware. Ollama, LM Studio, llama.cpp. Quantisation formats (GGUF, GPTQ) and the quality/size trade-off. When local inference is practical and when it isn't — VRAM requirements, speed expectations, use cases where privacy or offline operation make it worth it.

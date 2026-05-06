@@ -1,0 +1,1 @@
+Beyond the intuition covered in the RAG session. Embedding model architectures, contrastive learning, how embedding models are trained differently from generative models, dimensionality and its trade-offs, matryoshka embeddings.

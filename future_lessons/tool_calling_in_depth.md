@@ -1,0 +1,1 @@
+The full mechanics of how tool use works in the API. Structured tool definitions, parallel tool calls, error handling, tool result formatting. Moving beyond knowing tools exist to knowing how to design them well.

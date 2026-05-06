@@ -5,78 +5,35 @@
  *  - Page navigation (goPage)
  *  - Sidebar collapse toggles (toggleNav)
  *  - Dark / light theme (toggleTheme)
- *  - Right-hand TOC rendering
+ *  - Right-hand TOC rendering (auto-derived from .body h2[id] elements)
  *
- * ─────────────────────────────────────────
+ * Content is generated at build time from .md files in lessons_notes/ and
+ * future_lessons/ — see build.js and src/template.html.
+ *
  * ADDING A NEW SESSION
  * ─────────────────────────────────────────
- * 1. Add a TOC entry to the `tocs` object below (key = page id).
- * 2. Add the page id to the `lessons` array.
- * 3. Add the nav link in index.html inside the relevant topic's .nav-sub.
- * 4. Add the <article> block in index.html.
- * 5. Add a session row to the topic group on the home page.
- *
- * ADDING A NEW TOPIC
- * ─────────────────────────────────────────
- * 1. Add a new nav collapse block in index.html (copy the "Learning LLMs" pattern).
- * 2. Add a new topic group card on the home page.
- * 3. Add session articles and TOC entries as above.
+ * 1. Add a .md file to lessons_notes/ (completed) or future_lessons/ (planned).
+ * 2. Add the lesson entry to the LESSONS registry in build.js.
+ * 3. Add the nav link in src/template.html inside the relevant .nav-sub.
+ * 4. Add a session row to the topic group on the home page in src/template.html.
+ * 5. Run: node build.js
  */
 
-// ── TOC definitions ──────────────────────────────────────────────────────────
-// Each key is a page id matching the <article id="page-{id}"> in index.html.
-// Add an entry here for every lesson page that should show a right-hand TOC.
-
-const tocs = {
-  l0: [
-    { id: 'l0-s1', label: 'Chatbot vs Agent' },
-    { id: 'l0-s2', label: 'The Agent Loop' },
-    { id: 'l0-s3', label: 'Context = Reality' },
-    { id: 'l0-s4', label: 'Agent Spectrum' },
-  ],
-  l1: [
-    { id: 'l1-s1', label: 'What is Context?' },
-    { id: 'l1-s2', label: 'Context Payload' },
-    { id: 'l1-s3', label: 'System Prompt' },
-    { id: 'l1-s4', label: 'Management Strategies' },
-    { id: 'l1-s5', label: 'Performance & Design' },
-  ],
-  l2: [
-    { id: 'l2-s1', label: 'The Core Problem' },
-    { id: 'l2-s2', label: 'RAG Pipeline' },
-    { id: 'l2-s3', label: 'Vector Embeddings' },
-    { id: 'l2-s4', label: 'Two Approaches' },
-    { id: 'l2-s5', label: 'Vector DB Design' },
-  ],
-  // Add new lesson TOCs here, e.g.:
-  // l3: [
-  //   { id: 'l3-s1', label: 'First section' },
-  // ],
-};
-
-// ── Lesson page ids (determines which layout wrapper to show) ────────────────
-// Add new session ids here when creating new lessons.
-// Basics: l0–l6 · Intermediate: l7–l12 · Advanced: l13–l20 · Open Source: l21–l27
-const lessons = [
-  'l0', 'l1', 'l2', 'l3', 'l4', 'l5', 'l6',
-  'l7', 'l8', 'l9', 'l10', 'l11', 'l12',
-  'l13', 'l14', 'l15', 'l16', 'l17', 'l18', 'l19', 'l20',
-  'l21', 'l22', 'l23', 'l24', 'l25', 'l26', 'l27',
-];
-
 // ── Layout wrapper ids ────────────────────────────────────────────────────────
-// Maps a page id to the wrapping div that contains it.
-// Full-width pages (home) use 'wrap-home'; lesson pages share 'wrap-lessons'.
-const wrapMap = {
-  home: 'wrap-home',
-  // Add future full-width pages here if needed
-};
+// Derived from the DOM at init time so build.js doesn't need to keep this in sync.
+const wrapMap = { home: 'wrap-home' };
 
-lessons.forEach(id => { wrapMap[id] = 'wrap-lessons'; });
+function buildWrapMap() {
+  document.querySelectorAll('[data-wrap] .page[id]').forEach(page => {
+    const id   = page.id.replace('page-', '');
+    const wrap = page.closest('[data-wrap]');
+    if (wrap) wrapMap[id] = wrap.id;
+  });
+}
 
 // ── Navigation ────────────────────────────────────────────────────────────────
 
-function goPage(id) {
+function goPage(id, pushState = true) {
   // Hide all layout wrappers
   document.querySelectorAll('[data-wrap]').forEach(el => {
     el.style.display = 'none';
@@ -97,10 +54,12 @@ function goPage(id) {
   const navEl = document.getElementById('nav-' + id);
   if (navEl) navEl.classList.add('active');
 
-  // Render TOC for lesson pages and wire up the scroll-spy
+  // Auto-build TOC from h2 elements in the active article
   const tocLinks = document.getElementById('toc-links');
   if (tocLinks) {
-    const entries = tocs[id] || [];
+    const entries = page
+      ? [...page.querySelectorAll('.body h2[id]')].map(h => ({ id: h.id, label: h.textContent.trim() }))
+      : [];
     tocLinks.innerHTML = entries.map(t =>
       `<a class="toc-a" data-target="${t.id}" onclick="smoothTo('${t.id}')">${t.label}</a>`
     ).join('');
@@ -111,7 +70,19 @@ function goPage(id) {
   document.body.classList.remove('sidenav-open');
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Update URL so the page can be shared / bookmarked
+  if (pushState) {
+    const hash = id === 'home' ? '' : '#' + id;
+    history.pushState({ page: id }, '', location.pathname + hash);
+  }
 }
+
+// Sync page state when the user navigates with browser back/forward
+window.addEventListener('popstate', () => {
+  const id = location.hash.slice(1) || 'home';
+  goPage(wrapMap[id] !== undefined ? id : 'home', false);
+});
 
 // ── Active-section TOC (scroll-spy) ──────────────────────────────────────────
 
@@ -225,5 +196,7 @@ function copySkillPrompt(btn) {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 
+buildWrapMap();
 syncThemeUI();
-goPage('home');
+const initialPage = location.hash.slice(1) || 'home';
+goPage(wrapMap[initialPage] !== undefined ? initialPage : 'home', false);

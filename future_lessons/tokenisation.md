@@ -1,0 +1,1 @@
+How text is actually broken into tokens before the model sees it. Why token count doesn't equal word count. How tokenisation affects cost, context limits, and some surprising model behaviours (e.g. why LLMs are bad at counting letters).

@@ -1,0 +1,1 @@
+The major open source model families and where they sit relative to closed models. Llama (Meta), Mistral, Gemma (Google), Qwen (Alibaba), Phi (Microsoft) — what each is optimised for, licensing differences, and how quickly the gap with closed models is (or isn't) closing.

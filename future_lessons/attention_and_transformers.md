@@ -1,0 +1,1 @@
+How the transformer architecture actually works. Self-attention, multi-head attention, positional encoding. Not just "it predicts the next token" — what is actually happening computationally and why the architecture scales the way it does.

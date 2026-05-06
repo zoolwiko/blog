@@ -1,0 +1,1 @@
+LangChain, LlamaIndex, CrewAI, AutoGen — what problem each solves, where they help and where they add unnecessary complexity. The recurring debate of framework vs. building from scratch, and how to evaluate which is appropriate for a given project.

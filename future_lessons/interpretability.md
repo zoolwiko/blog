@@ -1,0 +1,1 @@
+What's actually happening inside a model when it produces output? Circuits, features, superposition. Anthropic's interpretability research (dictionary learning, feature visualisation). Early-stage field but growing fast.

@@ -1,0 +1,1 @@
+When do you change the model's weights vs. give it better instructions? Trade-offs between cost, data requirements, flexibility, and performance. When prompting hits its ceiling and fine-tuning becomes worth the effort.

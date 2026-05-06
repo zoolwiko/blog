@@ -1,0 +1,1 @@
+How the system prompt gets written well. Few-shot examples, chain-of-thought prompting, structured output formatting, role definition, negative examples. You've seen that a system prompt exists — this covers how to write one that actually works.

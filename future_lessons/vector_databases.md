@@ -1,0 +1,1 @@
+A practical comparison of the main options: Chroma (local/simple), Pinecone (managed), Weaviate, Qdrant, pgvector (Postgres extension). Trade-offs between managed services and self-hosted, and how to choose based on scale and operational complexity.

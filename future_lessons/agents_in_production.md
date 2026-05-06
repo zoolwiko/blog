@@ -1,0 +1,1 @@
+The gap between a working prototype and a reliable production system. Observability, logging, tracing agent runs, latency budgets, cost management, failure recovery, human-in-the-loop escalation patterns.

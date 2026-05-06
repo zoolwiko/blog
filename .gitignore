@@ -1,4 +1,5 @@
 
 .DS_Store
 .dccache
-Future_Topics.txt
+node_modules/
+index.html

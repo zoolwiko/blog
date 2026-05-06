@@ -1,0 +1,1 @@
+Alternatives to closed embedding APIs. Sentence Transformers, BGE, E5, Nomic Embed. How to evaluate embedding models (MTEB benchmark), when open models match or exceed closed ones, and how to self-host them alongside a vector database.

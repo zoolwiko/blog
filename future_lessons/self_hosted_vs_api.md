@@ -1,0 +1,1 @@
+The full cost/benefit analysis: API pricing vs. infrastructure cost, latency, data privacy, rate limits, model update control, fine-tuning access. When it makes sense to move from a managed API to running your own model, and what that transition actually involves.

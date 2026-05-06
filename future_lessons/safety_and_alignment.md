@@ -1,0 +1,1 @@
+What alignment actually means and why it is hard. RLHF as an alignment technique, its limitations, scalable oversight, interpretability research. Constitutional AI, red-teaming, jailbreaks and what they reveal about model internals.

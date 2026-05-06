@@ -1,0 +1,1 @@
+Models now support very large context windows — but performance degrades in non-obvious ways. The "lost in the middle" problem, when RAG is still better than just stuffing everything in, attention patterns at scale.

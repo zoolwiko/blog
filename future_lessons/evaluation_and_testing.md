@@ -1,0 +1,1 @@
+How do you know if your agent is actually working? LLM-as-judge, human eval, benchmark datasets, regression testing. Why evaluation is harder than it sounds and why it matters more than most people expect.
