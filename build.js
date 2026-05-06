@@ -261,11 +261,28 @@ function buildMarkedInstance(lessonId) {
     if (level === 2) {
       sectionCount++;
       const id = `${lessonId}-s${sectionCount}`;
-      const cls = String(text).replace(/<[^>]+>/g, '').trim() === 'Key Takeaways'
-        ? ' class="takeaways-hd"' : '';
+      const plain = String(text).replace(/<[^>]+>/g, '').trim();
+      const cls = plain === 'Key Takeaways' ? ' class="takeaways-hd"' : '';
       return `<h2 id="${id}"${cls}>${text}</h2>\n`;
     }
     return `<h${level}>${text}</h${level}>\n`;
+  };
+
+  // Tables → reuse the existing .styled-table CSS
+  renderer.table = (header, body) =>
+    `<table class="styled-table">\n<thead>\n${header}</thead>\n<tbody>\n${body}</tbody>\n</table>\n`;
+
+  // Blockquotes → reuse the existing .pull CSS
+  renderer.blockquote = (quote) =>
+    `<blockquote class="pull">${quote}</blockquote>\n`;
+
+  // Fenced mermaid blocks → bare <div class="mermaid"> for the CDN to pick up
+  // All other code blocks → reuse the existing .code-block CSS
+  renderer.code = (code, lang) => {
+    if (lang === 'mermaid') {
+      return `<div class="mermaid">${code}</div>\n`;
+    }
+    return `<pre class="code-block"><code${lang ? ` class="language-${lang}"` : ''}>${code}</code></pre>\n`;
   };
 
   return new Marked({ renderer });
