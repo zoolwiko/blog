@@ -2,104 +2,68 @@
 
 ## What is Context?
 
-Every LLM call is a fresh HTTP request. The agent reconstructs the full context and sends it every single time. The LLM has no memory between calls — **the agent process owns continuity**.
+Every LLM call is a fresh HTTP request. There is no persistent connection. No session. The agent reconstructs the full context and sends it every single time. **The LLM has no memory between calls — the agent process owns continuity.**
 
-```mermaid
-flowchart LR
-    A[Agent Process] -->|Reconstructs context| B[JSON Payload]
-    B -->|HTTP POST| C[LLM API]
-    C -->|Response| A
+```flow
+[a]Agent Process > [n]Reconstructs context > [n]JSON payload > [b]HTTP POST > [g]LLM API > [a]Response → Agent
+---
+No persistent connection. No session. The LLM is stateless.
 ```
-
-> There is no persistent connection. No session. The LLM is stateless.
-
------
 
 ## Structure of a Context Payload
 
-Sent as JSON over HTTP every call:
+Sent as JSON over HTTP on every call. Images, PDFs, and documents are embedded as base64 blocks. Tool results are special message types — not plain conversation turns.
 
 ```json
 {
   "model": "claude-sonnet-...",
   "system": "You are... [developer instructions]",
   "messages": [
-    { "role": "user", "content": "Do X" },
+    { "role": "user",      "content": "Do X" },
     { "role": "assistant", "content": "...[reasoning + tool call]..." },
-    { "role": "user", "content": "[tool result: ...]" }
+    { "role": "user",      "content": "[tool result: ...]" }
   ]
 }
 ```
 
-Images, PDFs, documents are embedded as base64 blocks inside this structure. Tool results are special message types, not plain conversation turns.
-
------
-
 ## System Prompt
 
-- Written by the **agent developer**, not the user
-- Loaded before any conversation begins
-- Users never see it directly
-- Contains: agent identity, core instructions, tool definitions, safety rules, behavioral constraints
+The system prompt is written by the **agent developer**, loaded before any conversation begins, and never shown to the user. It contains the agent's identity, core instructions, tool definitions, safety rules, and behavioural constraints.
 
-**Prompt injection** — a real attack vector where malicious content inside a tool result (e.g. a webpage the agent read) tries to override or hijack system prompt authority. Enforcement must be architectural, not just instructional.
-
------
+```callout red
+**Prompt Injection** — a real attack vector where malicious content inside a tool result (e.g. a webpage the agent read) tries to override or hijack system prompt authority. Enforcement must be architectural, not just instructional.
+```
 
 ## Context Management Strategies
 
-Agents can’t grow context forever — there’s a hard token limit. Developers choose how to manage it:
+Agents can't grow context forever — there's a hard token limit. Developers choose how to manage it. Most real agents combine several strategies.
 
-|Strategy               |How it works                                               |Trade-off                                 |
-|-----------------------|-----------------------------------------------------------|------------------------------------------|
-|**Always include**     |Static content always in context (CLAUDE.md, system prompt)|Takes up space but always available       |
-|**Sliding window**     |Keep last N turns, drop older ones                         |Simple, but loses history                 |
-|**Summarization**      |Compress old history into a paragraph via LLM call         |Space-efficient, but lossy                |
-|**RAG**                |Fetch relevant chunks from external storage on demand      |Scalable, but adds latency and complexity |
-|**Tool result pruning**|Summarize large tool outputs before adding to context      |Prevents bloat from verbose tool responses|
+| Strategy               | How it works                                                | Trade-off                                  |
+|------------------------|-------------------------------------------------------------|--------------------------------------------|
+| **Always include**     | Static content always in context (CLAUDE.md, system prompt) | <span class="bdg a">Takes up space</span> but always available |
+| **Sliding window**     | Keep last N turns, drop older ones                          | <span class="bdg g">Simple</span> but loses history |
+| **Summarisation**      | Compress old history into a paragraph via LLM call          | <span class="bdg g">Space-efficient</span> but lossy |
+| **RAG**                | Fetch relevant chunks from external storage on demand       | <span class="bdg g">Scalable</span> but adds latency |
+| **Tool result pruning**| Summarise large tool outputs before adding to context       | <span class="bdg g">Prevents bloat</span> from verbose tools |
 
-Most real agents combine several strategies.
+```callout amber
+**Who decides?** The developer — baked into the architecture, not decided at runtime. Claude Code uses token-budget-aware logic: when context approaches its limit, a summarisation pass compresses history to free space.
+```
 
------
+## Performance & Design Choices
 
-## Who Decides What Goes in Context?
+```cards
+[at]Context size affects performance | Larger context → more tokens → longer time to first token. Not always linear, but the relationship is real.
+[bt]Why not WebSockets? | Statelessness is in the model, not the transport layer. Full context still gets rebuilt and sent each call regardless of connection type.
+[gt]Why JSON? | Convention, universal tooling, human-readability — critical for debugging. The bottleneck is inference time, not serialization.
+[at]Developer controls everything | Fixed token budget, turn count limits, importance scoring — all developer decisions baked into architecture. Not runtime decisions.
+```
 
-**The developer** — baked into the agent’s architecture, not decided at runtime by the agent itself. Common approaches:
+## Key Takeaways
 
-- Fixed token budget (e.g. “keep until 80% of limit, then drop oldest”)
-- Turn count limit (e.g. “keep last 20 turns”)
-- Importance scoring (recent actions, errors, and goals prioritized)
-
-Claude Code uses token-budget-aware logic rather than a fixed turn count.
-
------
-
-## Context Compaction
-
-Claude Code’s **context compaction** = summarization strategy in practice.
-
-When the context approaches its limit, Claude Code runs a summarization pass — compressing conversation history into a compact representation — freeing space to continue the task.
-
------
-
-## Does Context Size Affect Performance?
-
-**Yes.** Larger context → more tokens to process → longer time to first token. Not always linear, but the relationship is real. This is a practical reason context management matters beyond just hitting hard limits.
-
------
-
-## Why JSON and Not Something More Efficient?
-
-- Convention and universal tooling support
-- Human-readable — critical for debugging agentic systems
-- The bottleneck is **inference time**, not serialization — JSON overhead is noise
-
-Binary alternatives (MessagePack, Protobuf) exist but aren’t worth the tradeoff given where the actual cost sits.
-
------
-
-## Why Not WebSockets for Long Sessions?
-
-The streaming API already uses **Server-Sent Events (SSE)** — tokens stream back as generated, so you don’t wait for a full response.
-
-But WebSockets wouldn’t solve the core issue: **the statelessness is in the model, not the transport layer.** Even with a persistent connection, the full context still has to be reconstructed and sent for each reasoning call. There’s no server-side state to maintain between calls.
+- **Every LLM call is stateless** — the agent rebuilds full context from scratch each time.
+- **The system prompt** is developer-authored and invisible to the user — it defines rules and identity.
+- **Tool results are not plain chat turns** — they are special message types in the payload.
+- **Context has a hard token limit** — management is not optional, it's a core design problem.
+- **Larger context = slower inference** — context management matters beyond just hitting limits.
+- **Prompt injection is a real threat** — requires architectural enforcement.

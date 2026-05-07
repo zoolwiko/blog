@@ -253,9 +253,103 @@ const JOURNEY_META = {
 
 // ── Markdown renderer ─────────────────────────────────────────────────────────
 
+const CHIP_ROLES = new Set(['n', 'a', 'b', 'g']);
+const CARD_VARIANTS = new Set(['al', 'al2', 'al3', 'at', 'bt', 'gt']);
+const CALLOUT_VARIANTS = new Set(['amber', 'blue', 'red']);
+
+// Split the body of a custom block into `rows | ---marker | footer` sections.
+// Returns { rows: string[], footer: string | null }.
+function splitOnSeparator(body) {
+  const lines = body.split('\n').map(l => l.trimEnd()).filter(l => l.length > 0);
+  const sep = lines.findIndex(l => /^-{3,}$/.test(l.trim()));
+  if (sep === -1) return { rows: lines, footer: null };
+  return {
+    rows: lines.slice(0, sep),
+    footer: lines.slice(sep + 1).join(' ').trim() || null,
+  };
+}
+
+function renderFlow(body, inline) {
+  const { rows, footer } = splitOnSeparator(body);
+  const rowHtml = rows.map(row => {
+    const pipeIdx = row.indexOf('|');
+    const label = pipeIdx === -1 ? '' : row.slice(0, pipeIdx).trim();
+    const chain = pipeIdx === -1 ? row : row.slice(pipeIdx + 1);
+    const parts = chain.split('>').map(p => p.trim()).filter(Boolean);
+    const chips = parts.map(part => {
+      const m = part.match(/^\[([nabg])\]\s*(.*)$/);
+      const role = m ? m[1] : 'n';
+      const text = m ? m[2] : part;
+      return `<span class="chip ${role}">${inline(text)}</span>`;
+    }).join('<span class="farrow">→</span>');
+    const lbl = label ? `<span class="flow-lbl">${inline(label)}</span>` : '';
+    return `            <div class="flow-row">${lbl}${chips}</div>`;
+  }).join('\n');
+  const note = footer ? `\n            <div class="flow-note">${inline(footer)}</div>` : '';
+  return `\n          <div class="flow-block">\n${rowHtml}${note}\n          </div>\n`;
+}
+
+function renderSteps(body, inline) {
+  const lines = body.split('\n').map(l => l.trim()).filter(Boolean);
+  const items = lines.map(line => {
+    const [num, title, ...rest] = line.split('|').map(p => p.trim());
+    const desc = rest.join('|').trim();
+    return `            <div class="step"><span class="step-n">${num || ''}</span><div><div class="step-title">${inline(title || '')}</div><div class="step-desc">${inline(desc)}</div></div></div>`;
+  }).join('\n');
+  return `\n          <div class="steps">\n${items}\n          </div>\n`;
+}
+
+function renderSpectrum(body, inline) {
+  const { rows, footer } = splitOnSeparator(body);
+  const cells = rows.map(row => {
+    const [heading, example, inv] = row.split('|').map(p => p.trim());
+    return `              <div class="spec-cell"><h5>${inline(heading || '')}</h5><div class="spec-ex">${inline(example || '')}</div><div class="spec-inv">${inline(inv || '')}</div></div>`;
+  }).join('\n');
+  let axisHtml = '';
+  if (footer) {
+    const [left, right] = footer.split('|').map(p => p.trim());
+    axisHtml = `\n            <div class="spec-footer"><span>${inline(left || '')}</span><span>${inline(right || '')}</span></div>`;
+  }
+  return `\n          <div class="spectrum">\n            <div class="spec-cells">\n${cells}\n            </div>${axisHtml}\n          </div>\n`;
+}
+
+function renderCallout(variant, body, inline) {
+  const v = CALLOUT_VARIANTS.has(variant) ? variant : 'amber';
+  return `\n          <div class="callout ${v}">${inline(body.trim())}</div>\n`;
+}
+
+function renderCards(args, body, inline) {
+  const gridCls = args.includes('three') ? 'card-grid three' : 'card-grid';
+  const lines = body.split('\n').map(l => l.trim()).filter(Boolean);
+  const items = lines.map(line => {
+    const m = line.match(/^\[(\w+)\]\s*(.*)$/);
+    const variant = m && CARD_VARIANTS.has(m[1]) ? m[1] : 'at';
+    const rest = m ? m[2] : line;
+    const pipeIdx = rest.indexOf('|');
+    const title = pipeIdx === -1 ? rest.trim() : rest.slice(0, pipeIdx).trim();
+    const bodyText = pipeIdx === -1 ? '' : rest.slice(pipeIdx + 1).trim();
+    return `            <div class="card ${variant}"><h4>${inline(title)}</h4><p>${inline(bodyText)}</p></div>`;
+  }).join('\n');
+  return `\n          <div class="${gridCls}">\n${items}\n          </div>\n`;
+}
+
+function renderCustomBlock(type, args, body, inline) {
+  switch (type) {
+    case 'flow':     return renderFlow(body, inline);
+    case 'steps':    return renderSteps(body, inline);
+    case 'spectrum': return renderSpectrum(body, inline);
+    case 'callout':  return renderCallout(args[0], body, inline);
+    case 'cards':    return renderCards(args, body, inline);
+    default:         return null;
+  }
+}
+
 function buildMarkedInstance(lessonId) {
   let sectionCount = 0;
   const renderer = new Renderer();
+  // Forward declaration: the instance is assigned below so helpers can close over it.
+  let instance;
+  const inline = (text) => instance.parseInline(text || '');
 
   renderer.heading = (text, level) => {
     if (level === 2) {
@@ -276,16 +370,22 @@ function buildMarkedInstance(lessonId) {
   renderer.blockquote = (quote) =>
     `<blockquote class="pull">${quote}</blockquote>\n`;
 
-  // Fenced mermaid blocks → bare <div class="mermaid"> for the CDN to pick up
-  // All other code blocks → reuse the existing .code-block CSS
+  // Fenced code dispatch:
+  //   mermaid       → <div class="mermaid"> for the CDN
+  //   flow/steps/…  → magazine-style custom components (see renderCustomBlock)
+  //   anything else → plain <pre class="code-block">
   renderer.code = (code, lang) => {
     if (lang === 'mermaid') {
       return `<div class="mermaid">${code}</div>\n`;
     }
+    const [blockType, ...args] = (lang || '').trim().split(/\s+/);
+    const custom = renderCustomBlock(blockType, args, code, inline);
+    if (custom !== null) return custom;
     return `<pre class="code-block"><code${lang ? ` class="language-${lang}"` : ''}>${code}</code></pre>\n`;
   };
 
-  return new Marked({ renderer });
+  instance = new Marked({ renderer });
+  return instance;
 }
 
 function renderMarkdown(md, lessonId) {
